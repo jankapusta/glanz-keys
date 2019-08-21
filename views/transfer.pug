@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  form(class='keyTransfer pure-form pure-form-aligned')
+    fieldset
+        legend 
+            h2= title
+        div(class='pure-control-group')
+            label(class='keySelect' for='key-location') Location:
+            select(id='key-location')
+                option(value='' selected=!selectedKey) (empty)
+                for one in keys
+                    option(value=one.id selected=(one.id === selectedKey.id)) #{one.title}
+        div(class='pure-control-group')                
+            label(class='nameInput' for='holder') New holder name:
+            input(id='holder')
+        div(class='pure-control-group') 
+            button(type='submit' class='pure-button pure-button-primary') Submit Transfer
+
+

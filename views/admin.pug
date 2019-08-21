@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h2= title
+  table(class='keysList')
+    thead 
+      tr
+        td Location 
+        td Holder's name
+    tbody 
+      for one in keys
+        tr
+          td #{one.location}
+          td #{one.holder}
+
+

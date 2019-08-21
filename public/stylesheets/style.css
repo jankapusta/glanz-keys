@@ -1,0 +1,40 @@
+body {
+  padding: 0px 0px 50px 0px;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0px auto;
+  text-align: center;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.header {
+  background-color: #f8f8f8;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 16pt;
+    color: grey;
+    text-transform: uppercase;
+    letter-spacing: 1em;
+}
+
+h2 {
+  margin: 7px;
+  text-transform: uppercase;
+}
+
+.keyTransfer {
+  background-color: #8ac2d83b;
+  padding: 20px;
+}
+
+.keyTransfer button {
+  margin-top: 40px;
+}
+
+table {
+  width: 100%;
+}
