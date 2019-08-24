@@ -8,7 +8,7 @@ BASE_NAME=keys
 NAMESPACE=glanz-${ENVIRONMENT}
 
 GLANZ_MONGO_PORT=27017
-GLANZ_MONGO_HOST=glanz-mongo
+GLANZ_MONGO_HOST=mongo
 
 LAST_COMMIT=`git rev-parse --short HEAD`
 PORT=8080
@@ -22,6 +22,7 @@ OF=./kube.db-ready.yaml
 eval "echo \"$(cat ${IF})\" > ${OF}"
 
 kubectl apply --record --namespace=${NAMESPACE} -f ${OF}
+rm ${OF}
 
 IF=./kube.app.yaml
 OF=./kube.app-ready.yaml

@@ -16,7 +16,7 @@ kind: Service
 metadata:
   labels:
     name: glanz-mongo
-  name: glanz-mongo
+  name: ${GLANZ_MONGO_HOST}
   namespace: ${NAMESPACE}
 spec:
   ports:
@@ -43,7 +43,7 @@ spec:
         name: glanz-mongo
     spec:
       containers:
-      - name: ${GLANZ_MONGO_HOST}
+      - name: mongo-container
         image: mongo:3.6
         ports:
         - containerPort: ${GLANZ_MONGO_PORT}
