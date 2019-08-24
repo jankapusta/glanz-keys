@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: glanz-mongodata
+  namespace: ${NAMESPACE}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2G
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: glanz-mongo
+  name: glanz-mongo
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "${GLANZ_MONGO_PORT}"
+    port: ${GLANZ_MONGO_PORT}
+    targetPort: ${GLANZ_MONGO_PORT}
+  selector:
+    name: glanz-mongo
+status:
+  loadBalancer: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: glanz-mongo
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: glanz-mongo
+    spec:
+      containers:
+      - name: ${GLANZ_MONGO_HOST}
+        image: mongo:3.6
+        ports:
+        - containerPort: ${GLANZ_MONGO_PORT}
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: glanz-mongodata
+      restartPolicy: Always
+      volumes:
+      - name: glanz-mongodata
+        gcePersistentDisk:
+          pdName: ${NAMESPACE}-glanz-mongodb-disk
+          fsType: ext4
+status: {}

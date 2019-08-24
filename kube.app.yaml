@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: glanz-keys
+  labels:
+    name: node-service
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: ${PORT}
+      protocol: TCP
+  selector:
+    app: ${BASE_NAME}-api
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ${ENVIRONMENT}-${BASE_NAME}
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 2
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: ${BASE_NAME}-api
+    spec:
+      containers:
+      - name: ${BASE_NAME}-container
+        image: '${CONTAINER_IMAGE}'
+        env:
+        - name: MONGO_PORT
+          value: '${GLANZ_MONGO_PORT}'
+        - name: MONGO_HOST
+          value: '${GLANZ_MONGO_HOST}'  
+        ports:
+        - containerPort: ${PORT}
+        livenessProbe:
+          tcpSocket:
+            port: ${PORT}
+          initialDelaySeconds: 300
+          timeoutSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: ${PORT}
+          initialDelaySeconds: 300
+          timeoutSeconds: 5
