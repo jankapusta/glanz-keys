@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 const OfficeKey = require("../models/OfficeKey.js");
+const Transfer = require("../models/Transfer.js");
 
 router.get('/done', function(req, res, next) {
 
@@ -24,6 +25,14 @@ router.get('/done', function(req, res, next) {
 
 router.post('/submit', function(req, res, next) {
 
+  if(!req.body.key_id || !req.body.holder) {
+    res.render('error', {
+      pageTitle: 'Glanz Berlin',
+      error: 'Please, choose key and enter the name. '
+    });
+    res.send();
+  } 
+
   OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKeyToUpdate) => {
     if(err) {
       res.render('error', {
@@ -32,14 +41,32 @@ router.post('/submit', function(req, res, next) {
       });
     } else {
 
-      const officeKeyToSet = {
-        current_holder: req.body.holder,
+      var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+      const historyRecord = {
+        next_holder: req.body.holder,
         previous_holder: officeKeyToUpdate.current_holder,
+        transfer_date: Date.now(),
         key_name: officeKeyToUpdate.key_name,
-        last_transfer_date: Date.now(),
+        key_id: officeKeyToUpdate._id,
+        ip_address: ip,
       };
-      OfficeKey.updateOne({_id: officeKeyToUpdate._id}, officeKeyToSet).then(success => {
-        if(success.ok) {
+      const officeKeyToSet = {
+        current_holder: historyRecord.next_holder,
+        previous_holder: historyRecord.previous_holder,
+        key_name: historyRecord.key_name,
+        last_transfer_date: historyRecord.transfer_date,
+      };
+      // track history
+      Transfer.create(historyRecord).then(result => {
+        if(!result.ok) {
+          console.log('failed to save transfer track record');
+        }
+      });
+
+      // update current one
+      OfficeKey.updateOne({_id: officeKeyToUpdate._id}, officeKeyToSet).then(result => {
+        if(result.ok) {
           res.redirect('/transfer/done?key_id=' + officeKeyToUpdate._id);
         } else {
           res.render('error', {
