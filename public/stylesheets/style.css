@@ -1,7 +1,7 @@
 body {
   padding: 0px 0px 50px 0px;
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin: 0px auto;
+  margin: 0px;
   text-align: center;
 }
 
@@ -114,6 +114,18 @@ table.pure-table td {
 .time {
   color: grey;
   font-size: 65%;
+}
+
+
+/* Mobile Styles */
+@media screen and (max-width: 580px) {
+  body {
+    font-size: 28px !important;
+  }
+
+  table {
+    font-size: 18px;
+  }
 }
 
 
