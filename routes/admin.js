@@ -10,7 +10,7 @@ router.get('/key/view', function(req, res, next) {
     if (err) return handleError(res, err);
 
     Transfer.find(
-      {}, 
+      {key_id: officeKey._id}, 
       'previous_holder next_holder transfer_date', 
       function (err, transfers) {
         if (err) return handleError(err);
@@ -60,6 +60,23 @@ router.post('/key/add/submit', function(req, res, next) {
   newKey.save().then(result => {
     console.log(result);
     if(!result._id) return handleError(res, 'Failure');
+
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const historyRecord = {
+      next_holder: officeKeyToSet.current_holder,
+      previous_holder: '- created -',
+      transfer_date: officeKeyToSet.last_transfer_date,
+      key_name: officeKeyToSet.key_name,
+      key_id: newKey._id,
+      ip_address: ip,
+    };
+    // track history
+    Transfer.create(historyRecord).then(result => {
+      if(!result.ok) {
+        console.log('failed to save transfer track record');
+      }
+    });
+
     res.redirect('/admin/key/add/done?key_id=' + newKey._id);
   });
 });
