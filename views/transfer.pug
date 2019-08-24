@@ -1,19 +1,19 @@
 extends layout
 
 block content
-  form(class='keyTransfer pure-form pure-form-aligned')
+  form(class='keyTransfer pure-form pure-form-aligned' action='/transfer/submit' method='post')
     fieldset
         legend 
             h2= title
         div(class='pure-control-group')
-            label(class='keySelect' for='key-location') Location:
-            select(id='key-location')
-                option(value='' selected=!selectedKey) (empty)
+            label(class='keySelect' for='key-location') Which key? 
+            select(id='key-location' name='key_id')
+                option(value='' selected=!selectedKey) (choose)
                 for one in keys
-                    option(value=one.id selected=(one.id === selectedKey.id)) #{one.title}
+                    option(value=one.id selected=(one._id === selectedKey.id)) #{one.key_name} (#{one.current_holder})
         div(class='pure-control-group')                
-            label(class='nameInput' for='holder') New holder name:
-            input(id='holder')
+            label(class='nameInput' for='holder') Who is taking it over:
+            input(id='holder' placeholder='Your name' name='holder')
         div(class='pure-control-group') 
             button(type='submit' class='pure-button pure-button-primary') Submit Transfer
 

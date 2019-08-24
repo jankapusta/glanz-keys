@@ -5,14 +5,18 @@ block content
   table(class='keysList pure-table pure-table-striped')
     thead 
       tr
-        th Location 
+        th Key ID 
+        th Key name 
         th Holder's name
         th Holding since
+        th Previous holder
     tbody 
       for one in keys
         tr
-          td #{one.location}
-          td #{one.holder}
-          td #{one.date}
+          td #{one._id}
+          td #{one.key_name}
+          td #{one.current_holder}
+          td #{moment(one.last_transfer_date).format('MMM D YYYY HH:mm')}
+          td #{one.previous_holder}
 
 
