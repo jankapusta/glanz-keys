@@ -2,15 +2,17 @@ extends layout
 
 block content
   h2= title
-  table(class='keysList')
+  table(class='keysList pure-table pure-table-striped')
     thead 
       tr
-        td Location 
-        td Holder's name
+        th Location 
+        th Holder's name
+        th Holding since
     tbody 
       for one in keys
         tr
           td #{one.location}
           td #{one.holder}
+          td #{one.date}
 
 

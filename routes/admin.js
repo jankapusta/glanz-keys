@@ -11,12 +11,20 @@ router.get('/', function(req, res, next) {
       {
         id: 1, 
         location: 'Mollstrasse',  
-        holder: 'Majka'
+        holder: 'Majka',
+        date: '2019-08-19'
       },
       {
         id: 2, 
-        location: 'Cuvry',  
-        holder: 'Katka'
+        location: 'Cuvry key A',  
+        holder: 'Katka',
+        date: '2019-08-19'
+      },
+      {
+        id: 2, 
+        location: 'Cuvry key B',  
+        holder: 'Anna',
+        date: '2019-08-20'
       }
     ]
   });
