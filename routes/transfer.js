@@ -8,38 +8,23 @@ const Transfer = require("../models/Transfer.js");
 router.get('/done', function(req, res, next) {
 
   OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
-    if(err) {
-      res.render('error', {
-        pageTitle: 'Glanz Berlin',
-        error: err
-      });
-    } else {
-      res.render('transfer-done', { 
-        pageTitle: 'Glanz Berlin',
-        title: 'Key holder updated',
-        officeKey: officeKey,
-      });
-    }
+    if (err) return handleError(res, err);
+    res.render('transfer-done', { 
+      pageTitle: 'Glanz Berlin',
+      title: 'Key holder updated',
+      officeKey: officeKey,
+    });
   });
 });
 
 router.post('/submit', function(req, res, next) {
 
   if(!req.body.key_id || !req.body.holder) {
-    res.render('error', {
-      pageTitle: 'Glanz Berlin',
-      error: 'Please, choose key and enter the name. '
-    });
-    res.send();
+    return handleError(res, 'Please, choose key and enter the name. ');
   } 
 
   OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKeyToUpdate) => {
-    if(err) {
-      res.render('error', {
-        pageTitle: 'Glanz Berlin',
-        error: err
-      });
-    } else {
+      if (err) return handleError(res, err);
 
       var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -66,37 +51,10 @@ router.post('/submit', function(req, res, next) {
 
       // update current one
       OfficeKey.updateOne({_id: officeKeyToUpdate._id}, officeKeyToSet).then(result => {
-        if(result.ok) {
-          res.redirect('/transfer/done?key_id=' + officeKeyToUpdate._id);
-        } else {
-          res.render('error', {
-            pageTitle: 'Glanz Berlin',
-            error: 'Failure'
-          });
-        }
-    
+        if(!result.ok) return handleError(res, 'Failure');
+        res.redirect('/transfer/done?key_id=' + officeKeyToUpdate._id);
       });
-    }
   });
-
-  
-
-  // const { body,validationResult } = require('express-validator/check');
-  // const { sanitizeBody } = require('express-validator/filter');
-
-  // body('key', 'Choose key').isLength({ min: 1 });
-  // body('holder', 'Enter who is taking the key').isLength({ min: 1 });
-
-
-  //
-
-  // var newKey = new OfficeKey({
-  //   key_name: 'Mollstrasse A',
-  // });
-  // newKey.save(function (err) {
-  //   if (err) return handleError(err);
-  //   // Bob now has his story
-  // });
 
 });
 
@@ -107,9 +65,7 @@ router.get('/', function(req, res, next) {
     {}, 
     'key_name current_holder', 
     function (err, officeKeys) {
-      if (err) return handleError(err);
-      // 'athletes' contains the list of athletes that match the criteria.
-
+      if (err) return handleError(res, err);
       res.render('transfer', { 
         pageTitle: 'Glanz Berlin',
         title: 'Transfer key',
@@ -124,3 +80,14 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+
+const handleError = (res, err) => {
+
+  res.render('error', {
+    pageTitle: 'Glanz Berlin',
+    error: err
+  });
+  res.send();
+
+}
