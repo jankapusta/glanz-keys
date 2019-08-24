@@ -16,6 +16,13 @@ NODE_ENV=${ENVIRONMENT}
 
 CONTAINER_IMAGE=gcr.io/glanz-250816/glanz-${ENVIRONMENT}-${BASE_NAME}:v${LAST_COMMIT}
 
+
+IF=./kube.db.yaml
+OF=./kube.db-ready.yaml
+eval "echo \"$(cat ${IF})\" > ${OF}"
+
+kubectl apply --record --namespace=${NAMESPACE} -f ${OF}
+
 IF=./kube.app.yaml
 OF=./kube.app-ready.yaml
 eval "echo \"$(cat ${IF})\" > ${OF}"
