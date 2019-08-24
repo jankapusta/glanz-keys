@@ -2,9 +2,26 @@ var express = require('express');
 var router = express.Router();
 
 const OfficeKey = require("../models/OfficeKey.js");
+const Transfer = require("../models/Transfer.js");
 
 router.get('/key/view', function(req, res, next) {
 
+  OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
+    if (err) return handleError(res, err);
+
+    Transfer.find(
+      {}, 
+      'previous_holder next_holder transfer_date', 
+      function (err, transfers) {
+        if (err) return handleError(err);
+        res.render('key-history', { 
+          pageTitle: 'Glanz Berlin',
+          transfers: transfers,
+          officeKey: officeKey,
+          moment: require( 'moment' )
+        });
+    });
+  });
 
 });
 

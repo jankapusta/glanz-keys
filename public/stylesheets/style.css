@@ -11,19 +11,20 @@ a {
 
 .header {
   background-color: #f8f8f8;
-  padding: 20px;
+  padding: 6px;
 }
 
 h1 {
   font-size: 16pt;
-    color: grey;
+    color: #d8d8d8;
     text-transform: uppercase;
     letter-spacing: 1em;
 }
 
 h2 {
-  margin: 7px;
+  margin: 7px 0px 14px 0px;
   text-transform: uppercase;
+  color:grey;
 }
 
 .keyTransfer {
@@ -56,8 +57,8 @@ table {
 
 .keyName {
   display: inline-block;
-  border: 1px solid #11ab00;
-  background-color: rgb(207, 247, 210);
+  border: 1px solid #eabd52;
+  background-color: rgb(255, 231, 161);
   padding: 3px 9px;
   border-radius: 4px;
   margin: 0px 5px;
@@ -65,9 +66,15 @@ table {
   color:black;
 }
 
+.right-menu {
+  float: right;
+  margin: 10px 30px 0px 10px;
+}
+
 .pure-button.inline {
   padding: 5px 20px;
   margin-top: -4px;
+  margin-left: 10px;
 }
 
 .button-success,

@@ -2,9 +2,9 @@ extends layout
 
 block content
   form(class='keyTransfer pure-form pure-form-aligned' action='/transfer/submit' method='post')
-    fieldset
-        legend 
-            h2= title
+    
+        h2= title 
+            
         div(class='pure-control-group')
             label(class='keySelect' for='key-location') Which key? 
             select(id='key-location' name='key_id')
