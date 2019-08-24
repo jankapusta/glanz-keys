@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  form(class='keyAdd pure-form pure-form-aligned' action='/admin/key/add/submit' method='post')
+    
+        h2= title 
+        div(class='pure-control-group')                
+            label(class='nameInput' for='keyName') Name of the key:
+            input(id='keyName' placeholder='e.g. Cuvry A' name='key_name')
+        div(class='pure-control-group')                
+            label(class='nameInput' for='keyHolder') Who has it now?
+            input(id='keyHolder' placeholder='e.g. Majka' name='holder')    
+        div(class='pure-control-group') 
+            button(type='submit' class='pure-button pure-button-primary') Save new key
+
+

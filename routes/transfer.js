@@ -85,7 +85,8 @@ const handleError = (res, err) => {
 
   res.render('error', {
     pageTitle: 'Glanz Berlin',
-    error: err
+    error: err,
+    back: '/transfer'
   });
   res.send();
 

@@ -42,7 +42,47 @@ router.get('/key/delete', function(req, res, next) {
 
 });
 
+
+router.post('/key/add/submit', function(req, res, next) {
+
+  if(!req.body.key_name) {
+    return handleError(res, 'Please, enter a key name. ');
+  } 
+
+  const officeKeyToSet = {
+    current_holder: req.body.holder,
+    previous_holder: '-',
+    key_name: req.body.key_name,
+    last_transfer_date: Date.now(),
+  };
+  // create new one
+  newKey = new OfficeKey(officeKeyToSet);
+  newKey.save().then(result => {
+    console.log(result);
+    if(!result._id) return handleError(res, 'Failure');
+    res.redirect('/admin/key/add/done?key_id=' + newKey._id);
+  });
+});
+
+router.get('/key/add/done', function(req, res, next) {
+
+  OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
+    if (err) return handleError(res, err);
+    res.render('key-add-done', { 
+      pageTitle: 'Glanz Berlin',
+      title: 'Key added',
+      officeKey: officeKey,
+    });
+  });
+});
+
+
 router.get('/key/add', function(req, res, next) {
+
+  res.render('key-add', { 
+    pageTitle: 'Glanz Berlin',
+    title: 'Add new key',
+  });
 
 
 });
@@ -64,3 +104,16 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+
+
+const handleError = (res, err) => {
+
+  res.render('error', {
+    pageTitle: 'Glanz Berlin',
+    error: err,
+    back: '/admin'
+  });
+  res.send();
+
+}
