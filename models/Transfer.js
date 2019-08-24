@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoose_delete = require('mongoose-delete');
 
 //Define a schema
   var Schema = mongoose.Schema;
@@ -10,5 +11,7 @@ var mongoose = require('mongoose');
     transfer_date: Date,
     ip_address: String,
   });
+
+  TransferSchema.plugin(mongoose_delete, { overrideMethods: true });
 
   module.exports = mongoose.model('Transfer', TransferSchema );

@@ -48,6 +48,11 @@ table {
   padding: 20px;
   background-color: rgb(241, 159, 163);
 }
+.keysList {
+  width: 94%;
+  margin:auto;
+
+}
 
 .keyName {
   display: inline-block;
@@ -56,6 +61,8 @@ table {
   padding: 3px 9px;
   border-radius: 4px;
   margin: 0px 5px;
+  text-decoration: none;
+  color:black;
 }
 
 .pure-button.inline {

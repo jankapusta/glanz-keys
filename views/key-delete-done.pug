@@ -1,0 +1,10 @@
+
+extends layout
+
+block content
+    div(class='success')  
+      p Now
+        strong(class='keyName') #{officeKey.key_name} 
+        | is deleted. 
+      p Thank you! 
+        a(href='/admin' class='button-secondary pure-button inline') back 

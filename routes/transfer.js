@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
 
 const OfficeKey = require("../models/OfficeKey.js");
 const Transfer = require("../models/Transfer.js");

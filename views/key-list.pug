@@ -5,18 +5,20 @@ block content
   table(class='keysList pure-table pure-table-striped')
     thead 
       tr
-        th Key ID 
         th Key name 
-        th Holder's name
+        th Current holder
         th Holding since
         th Previous holder
+        th 
     tbody 
       for one in keys
         tr
-          td #{one._id}
-          td #{one.key_name}
+          td 
+            a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See trasfers history') #{one.key_name}
           td #{one.current_holder}
           td #{moment(one.last_transfer_date).format('MMM D YYYY HH:mm')}
           td #{one.previous_holder}
+          td 
+            a(href='/admin/key/delete?key_id=' + one._id) Delete
 
 
