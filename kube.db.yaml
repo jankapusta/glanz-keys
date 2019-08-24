@@ -20,7 +20,7 @@ metadata:
   namespace: ${NAMESPACE}
 spec:
   ports:
-  - name: "${GLANZ_MONGO_PORT}"
+  - name: mongo
     port: ${GLANZ_MONGO_PORT}
     targetPort: ${GLANZ_MONGO_PORT}
   selector:
