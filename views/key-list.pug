@@ -12,7 +12,6 @@ block content
         th Current holder
         th Holding since
         th Previous holder
-        th 
     tbody 
       for one in keys
         tr
@@ -22,7 +21,6 @@ block content
           td #{moment(one.last_transfer_date).format('ddd MMM D')} 
             span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
           td #{one.previous_holder}
-          td 
-            a(href='/admin/key/delete?key_id=' + one._id) Delete
+           
 
 

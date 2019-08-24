@@ -19,4 +19,14 @@ block content
           td #{one.previous_holder}
           td #{one.next_holder}
   p
-      a(href='/admin' class='button-secondary pure-button inline') back  
+    a(href='/admin' class='button-secondary pure-button') back  
+
+
+  div(class='dangerZone')
+    h2 Danger zone
+    form(class='pure-form pure-form' action='/admin/key/delete' method='post')
+        div(class='pure-control-group')      
+          input(type='checkbox' id='delete' name='key_id' value=officeKey._id)  
+          | 
+          label(for='delete') Delete this key       
+          button(class='button-error pure-button inline') Approve

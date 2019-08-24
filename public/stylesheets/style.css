@@ -85,6 +85,14 @@ table.pure-table td {
   margin-left: 10px;
 }
 
+.pure-control-group {
+  margin-top: 10px;
+}
+
+.pure-control-group input {
+  margin-left:8px;
+}
+
 .button-success,
 .button-error,
 .button-warning,
@@ -114,6 +122,10 @@ table.pure-table td {
 .time {
   color: grey;
   font-size: 65%;
+}
+
+.dangerZone {
+  margin-top: 120px;
 }
 
 

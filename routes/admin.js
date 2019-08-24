@@ -25,12 +25,11 @@ router.get('/key/view', function(req, res, next) {
 
 });
 
-router.get('/key/delete', function(req, res, next) {
+router.post('/key/delete', function(req, res, next) {
   
-  OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
-    if (err) return handleError(res, err);
-
-    OfficeKey.deleteOne({'_id': officeKey.id}, (err) => {
+  OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKey) => {
+    if (err || !officeKey) return handleError(res, err || 'You have to tick the checkbox');
+    OfficeKey.deleteOne({'_id': officeKey._id}, (err) => {
       if (err) return handleError(res, err);
       res.render('key-delete-done', { 
         pageTitle: 'Glanz Berlin',
@@ -39,9 +38,7 @@ router.get('/key/delete', function(req, res, next) {
       });
     });
   });
-
 });
-
 
 router.post('/key/add/submit', function(req, res, next) {
 
