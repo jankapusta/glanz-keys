@@ -1,6 +1,6 @@
 body {
   padding: 0px 0px 50px 0px;
-  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0px auto;
   text-align: center;
 }
@@ -27,6 +27,10 @@ h2 {
   color:grey;
 }
 
+table {
+  font-size: 16px;
+}
+
 .keyTransfer {
   background-color: #8ac2d83b;
   padding: 20px;
@@ -38,6 +42,10 @@ h2 {
 
 table {
   width: 100%;
+}
+
+table.pure-table td {
+  padding: 0.4em 1em;
 }
 
 .success {
@@ -68,7 +76,7 @@ table {
 
 .right-menu {
   float: right;
-  margin: 10px 30px 0px 10px;
+  margin: 12px 30px 0px 10px;
 }
 
 .pure-button.inline {
@@ -102,3 +110,12 @@ table {
 .button-secondary {
     background: rgb(66, 184, 221); /* this is a light blue */
 }
+
+.time {
+  color: grey;
+  font-size: 65%;
+}
+
+
+
+

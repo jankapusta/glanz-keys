@@ -14,7 +14,8 @@ block content
     tbody 
       for one in transfers
         tr
-          td #{moment(one.transfer_date).format('MMM D YYYY HH:mm')}
+          td #{moment(one.transfer_date).format('ddd MMM D')} 
+            span(class='time') #{moment(one.transfer_date).format('HH:mm')}
           td #{one.previous_holder}
           td #{one.next_holder}
   p
