@@ -41,6 +41,9 @@ router.post('/submit', function(req, res, next) {
         key_name: historyRecord.key_name,
         last_transfer_date: historyRecord.transfer_date,
       };
+
+      //set user name to cookie
+      res.cookie('keyHolderName', officeKeyToSet.current_holder);
       // track history
       Transfer.create(historyRecord).then(result => {
         if(!result.ok) {
@@ -53,6 +56,8 @@ router.post('/submit', function(req, res, next) {
         if(!result.ok) return handleError(res, 'Failure');
         res.redirect('/transfer/done?key_id=' + officeKeyToUpdate._id);
       });
+
+
   });
 
 });
@@ -68,9 +73,8 @@ router.get('/', function(req, res, next) {
       res.render('transfer', { 
         pageTitle: 'Glanz Berlin',
         title: 'Transfer key',
-        selectedKey: {
-          id: 1
-        }, 
+        selectedKey: req.query.key_id, 
+        holderName: req.cookies.keyHolderName || '',
         keys: officeKeys
       });
     })
