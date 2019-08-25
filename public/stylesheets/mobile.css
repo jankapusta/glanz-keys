@@ -35,7 +35,7 @@
   }
   .pure-form label {
     display: block;
-    margin: 36px 0px 7px 0px;
+    margin: 6px 0px 7px 0px;
     padding: 0px 8px;
   }
   .pure-form  label.keyNameLabel {
@@ -48,7 +48,7 @@
   }
 
   .pure-form .pure-button,   .pure-form .pure-button[type=submit] {
-    margin-bottom: 120px;
+    margin-bottom: 80px;
   }
   .pure-button.inline {
     margin-top: 8px;

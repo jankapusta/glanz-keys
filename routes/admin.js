@@ -59,7 +59,7 @@ router.post('/key/delete', function(req, res, next) {
 router.post('/key/add/submit', function(req, res, next) {
 
   if(!req.body.key_name) {
-    return handleError(res, 'Please, enter a key name. ');
+    return handleError(res, 'Please, enter a key name. ', '/admin/key/add');
   } 
 
   const officeKeyToSet = {
@@ -72,7 +72,7 @@ router.post('/key/add/submit', function(req, res, next) {
   newKey = new OfficeKey(officeKeyToSet);
   newKey.save().then(result => {
     console.log(result);
-    if(!result._id) return handleError(res, 'Failure');
+    if(!result._id) return handleError(res, 'Failure', '/admin/key/add');
 
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const historyRecord = {
@@ -137,12 +137,12 @@ module.exports = router;
 
 
 
-const handleError = (res, err) => {
+const handleError = (res, err, backLink = '') => {
 
   res.render('error', {
     pageTitle: 'Glanz Berlin',
     error: err,
-    back: '/admin'
+    back: backLink || '/admin'
   });
   res.send();
 

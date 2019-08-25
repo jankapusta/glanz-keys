@@ -132,8 +132,8 @@ input[type=checkbox] {
   font-size: 65%;
 }
 
-.editKeyForm {
-  margin-top: 40px;
+h2.editKeyForm {
+  margin-top: 65px;
   margin-bottom: 0px;
 }
 
