@@ -1,7 +1,7 @@
 /* Mobile Styles */
 @media only screen and (max-width: 580px) {
   body {
-    font-size: 28px !important;
+    font-size: 20px;
   }
 
   h2 {
@@ -9,8 +9,8 @@
     margin: 20px 0px; 
   }
 
-  table {
-    font-size: 16px;
+  table, table.pure-table td, table.pure-table th {
+    font-size: 14px;
   }
   .pure-form label {
     display: block;
@@ -22,8 +22,8 @@
     display: block;
   }
 
-  .pure-form .pure-button {
-    margin-bottom: 140px;
+  .pure-form .pure-button,   .pure-form .pure-button[type=submit] {
+    margin-bottom: 120px;
   }
   .pure-button.inline {
     margin-top: 8px;
