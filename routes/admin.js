@@ -25,6 +25,22 @@ router.get('/key/view', function(req, res, next) {
 
 });
 
+router.post('/key/update', function(req, res, next) {
+  
+  OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKey) => {
+    if (err || !officeKey) return handleError(res, err || 'Key not found');
+    officeKey.key_name = req.body.key_name;
+    OfficeKey.updateOne({'_id': officeKey._id}, officeKey, (err) => {
+      if (err) return handleError(res, err);
+      res.render('key-update-done', { 
+        pageTitle: 'Glanz Berlin',
+        title: 'Key renamed',
+        officeKey: officeKey,
+      });
+    });
+  });
+});
+
 router.post('/key/delete', function(req, res, next) {
   
   OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKey) => {

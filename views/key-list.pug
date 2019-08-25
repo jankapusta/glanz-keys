@@ -23,17 +23,17 @@ block content
               span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
             td #{one.previous_holder}
            
-  div(class='only-mobile')  
+  div(class='only-mobile pseudoTable')  
     for one in keys
       div(class='mobileRow')
         span(class='keyNameRow') 
           a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See trasfers history') #{one.key_name}
-        span(class='keyInfoRow') 
           span 
             span(class='small') with  
             | #{one.current_holder}
+        span(class='keyInfoRow') 
           span 
             span(class='small') since  
             | #{moment(one.last_transfer_date).format('ddd MMM D')} 
             span(class='time') #{moment(one.last_transfer_date).format('HH:mm')} 
-          span(class='small') (transfered from #{one.previous_holder})
+

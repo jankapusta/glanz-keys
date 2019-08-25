@@ -132,8 +132,8 @@ input[type=checkbox] {
   font-size: 65%;
 }
 
-.dangerZone {
-  margin-top: 120px;
+.editKeyForm {
+  margin-top: 40px;
 }
 
 
@@ -148,5 +148,13 @@ input[type=checkbox] {
 
 .keyInfoRow {
   display: block;
-  margin: 4px 0px 20px 0px;
+  margin: 4px 0px 0px 0px;
+}
+
+.mobileRow {
+  padding: 10px 0px;
+}
+
+.mobileRow:nth-child(2) {
+  background: #f2f2f2;
 }
