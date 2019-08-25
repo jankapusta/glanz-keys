@@ -155,6 +155,6 @@ input[type=checkbox] {
   padding: 10px 0px;
 }
 
-.mobileRow:nth-child(2) {
+.mobileRow:nth-child(2n) {
   background: #f2f2f2;
 }
