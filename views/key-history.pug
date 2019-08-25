@@ -25,8 +25,8 @@ block content
   div(class='dangerZone')
     h2 Danger zone
     form(class='pure-form pure-form' action='/admin/key/delete' method='post')
-        div(class='pure-control-group')      
-          input(type='checkbox' id='delete' name='key_id' value=officeKey._id)  
-          | 
-          label(for='delete') Delete this key       
+        div(class='pure-control-group')  
+          label(for='delete')    
+            input(type='checkbox' id='delete' name='key_id' value=officeKey._id) 
+            | Delete this key     
           button(class='button-error pure-button inline') Approve

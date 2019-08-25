@@ -119,6 +119,10 @@ table.pure-table td {
     background: rgb(66, 184, 221); /* this is a light blue */
 }
 
+input[type=checkbox] {
+  margin-right: 8px;
+}
+
 .time {
   color: grey;
   font-size: 65%;
@@ -127,23 +131,5 @@ table.pure-table td {
 .dangerZone {
   margin-top: 120px;
 }
-
-
-/* Mobile Styles */
-@media screen and (max-width: 580px) {
-  body {
-    font-size: 28px !important;
-  }
-
-  table {
-    font-size: 18px;
-  }
-  .pure-form label {
-    display: block;
-    margin: 24px 0px 7px 0px;
-  }
-}
-
-
 
 

@@ -1,0 +1,34 @@
+/* Mobile Styles */
+@media only screen and (max-width: 580px) {
+  body {
+    font-size: 28px !important;
+  }
+
+  table {
+    font-size: 16px;
+  }
+  .pure-form label {
+    display: block;
+    margin: 36px 0px 7px 0px;
+  }
+
+  .pure-form input[type=text], .pure-form select {
+    width: 98%;
+    display: block;
+  }
+
+  .pure-form .pure-button {
+    margin-bottom: 140px;
+  }
+  .pure-button.inline {
+    margin-top: 8px;
+  }
+
+  .right-menu {
+    display: block;
+    float: none;
+    margin-bottom: 30px;
+  }
+
+}
+
