@@ -2,22 +2,33 @@
 extends layout
 
 block content
-  div
-    h2 History for
+  h2 History for
       strong(class='keyName') #{officeKey.key_name} 
-  table(class='keysList pure-table pure-table-striped')
-    thead 
-      tr
-        th Date
-        th Transfer from
-        th Transfer to
-    tbody 
-      for one in transfers
+  div(class='only-desktop')    
+    table(class='keysList pure-table pure-table-striped')
+      thead 
         tr
-          td #{moment(one.transfer_date).format('ddd MMM D')} 
-            span(class='time') #{moment(one.transfer_date).format('HH:mm')}
-          td #{one.previous_holder}
-          td #{one.next_holder}
+          th Date
+          th Transfer from
+          th Transfer to
+      tbody 
+        for one in transfers
+          tr
+            td #{moment(one.transfer_date).format('ddd MMM D')} 
+              span(class='time') #{moment(one.transfer_date).format('HH:mm')}
+            td #{one.previous_holder}
+            td #{one.next_holder}
+  div(class='only-mobile pseudoTable')
+    for one in transfers
+      div(class='mobileRow')
+        span(class='keyNameRow') 
+          span(class='small') from #{one.previous_holder} 
+          span(class='small') to  
+          | #{one.next_holder} 
+        span(class='keyInfoRow') 
+          span 
+            span(class='small') on #{moment(one.transfer_date).format('ddd MMM D')} 
+            span(class='time') #{moment(one.transfer_date).format('HH:mm')}           
   p
     a(href='/admin' class='button-secondary pure-button') back  
 
