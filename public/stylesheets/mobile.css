@@ -4,6 +4,11 @@
     font-size: 28px !important;
   }
 
+  h2 {
+    font-size: 22px;
+    margin: 20px 0px; 
+  }
+
   table {
     font-size: 16px;
   }
