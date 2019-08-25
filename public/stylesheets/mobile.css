@@ -53,6 +53,7 @@
   .right-menu {
     display: block;
     float: none;
+    text-align: center;
     margin-bottom: 30px;
   }
 

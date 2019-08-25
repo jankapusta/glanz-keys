@@ -48,6 +48,10 @@ table.pure-table td {
   padding: 0.4em 1em;
 }
 
+tr:hover td {
+  background-color: rgb(212, 242, 251) !important;
+}
+
 .success {
   padding: 20px;
   background-color: rgb(170, 219, 155);
@@ -75,7 +79,7 @@ table.pure-table td {
 }
 
 .right-menu {
-  float: right;
+  text-align: right;
   margin: 12px 30px 0px 10px;
 }
 

@@ -14,13 +14,13 @@ router.get('/key/view', function(req, res, next) {
       'previous_holder next_holder transfer_date', 
       function (err, transfers) {
         if (err) return handleError(err);
-        res.render('key-history', { 
+        res.render('key-detail', { 
           pageTitle: 'Glanz Berlin',
           transfers: transfers,
           officeKey: officeKey,
           moment: require( 'moment' )
         });
-    });
+    }).sort('-transfer_date');
   });
 
 });
@@ -114,7 +114,7 @@ router.get('/', function(req, res, next) {
         keys: officeKeys,
         moment: require( 'moment' )
       });
-    })
+    }).sort('key_name')
 });
 
 module.exports = router;
