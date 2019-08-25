@@ -39,11 +39,11 @@ block content
         input(type='hidden' name='key_id' value=officeKey._id) 
         label(for='keyName' class='keyNameLabel') Key name:    
         input(type='text' id='keyName' name='key_name' value=officeKey.key_name) 
-        button(class='button-secondary pure-button inline') Save
+        button(class='pure-button-primary pure-button') Save
   h2(class='editKeyForm') Danger zone
   form(class='pure-form pure-form' action='/admin/key/delete' method='post')
       div(class='pure-control-group')  
         label(for='delete')    
           input(type='checkbox' id='delete' name='key_id' value=officeKey._id) 
           | Delete this key     
-        button(class='button-error pure-button inline') Delete
+        button(class='button-error pure-button') Delete
