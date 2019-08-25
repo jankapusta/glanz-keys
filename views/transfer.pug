@@ -8,12 +8,12 @@ block content
         div(class='pure-control-group')
             label(class='keySelect' for='key-location') Which key? 
             select(id='key-location' name='key_id')
-                option(value='' selected=!selectedKey) (choose)
+                option(value='' selected=!selectedKey) - choose key -
                 for one in keys
-                    option(value=one.id selected=(one._id === selectedKey.id)) #{one.key_name} (#{one.current_holder})
+                    option(value=one.id selected=(one._id === selectedKey.id)) #{one.key_name} (with #{one.current_holder})
         div(class='pure-control-group')                
             label(class='nameInput' for='holder') Who is taking it over:
-            input(id='holder' placeholder='Your name' name='holder')
+            input(id='holder' placeholder='New holder name' name='holder')
         div(class='pure-control-group') 
             button(type='submit' class='pure-button pure-button-primary') Submit Transfer
 
