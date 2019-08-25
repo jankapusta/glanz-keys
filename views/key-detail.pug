@@ -23,10 +23,10 @@ block content
 
 
   h2(class='editKeyForm') Edit key name
-  form(class='pure-form pure-form' action='/admin/key/update' method='post')
+  form(class='pure-form' action='/admin/key/update' method='post')
       div(class='pure-control-group')  
         input(type='hidden' name='key_id' value=officeKey._id) 
-        label(for='keyName') Key name:    
+        label(for='keyName' class='keyNameLabel') Key name:    
         input(type='text' id='keyName' name='key_name' value=officeKey.key_name) 
         button(class='button-secondary pure-button inline') Save
   h2(class='editKeyForm') Danger zone

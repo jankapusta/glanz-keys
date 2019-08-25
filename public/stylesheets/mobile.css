@@ -36,10 +36,14 @@
   .pure-form label {
     display: block;
     margin: 36px 0px 7px 0px;
+    padding: 0px 8px;
+  }
+  .pure-form  label.keyNameLabel {
+    text-align: left;
   }
 
   .pure-form input[type=text], .pure-form select {
-    width: 98%;
+    width: 95%;
     display: block;
   }
 
