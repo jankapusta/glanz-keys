@@ -5,22 +5,35 @@ block content
     a(href='/admin/key/add', class='button-secondary pure-button inline') New key
     a(href='/transfer', class='button-secondary pure-button inline') Make transfer
   h2= title
-  table(class='keysList pure-table pure-table-striped')
-    thead 
-      tr
-        th Key name 
-        th Current holder
-        th Holding since
-        th Previous holder
-    tbody 
-      for one in keys
+  div(class='only-desktop')
+    table(class='keysList pure-table pure-table-striped')
+      thead 
         tr
-          td 
-            a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See trasfers history') #{one.key_name}
-          td #{one.current_holder}
-          td #{moment(one.last_transfer_date).format('ddd MMM D')} 
-            span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
-          td #{one.previous_holder}
+          th Key name 
+          th Current holder
+          th Holding since
+          th Previous holder
+      tbody 
+        for one in keys
+          tr
+            td 
+              a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See trasfers history') #{one.key_name}
+            td #{one.current_holder}
+            td #{moment(one.last_transfer_date).format('ddd MMM D')} 
+              span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
+            td #{one.previous_holder}
            
-
-
+  div(class='only-mobile')  
+    for one in keys
+      div(class='mobileRow')
+        span(class='keyNameRow') 
+          a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See trasfers history') #{one.key_name}
+        span(class='keyInfoRow') 
+          span 
+            span(class='small') with  
+            | #{one.current_holder}
+          span 
+            span(class='small') since  
+            | #{moment(one.last_transfer_date).format('ddd MMM D')} 
+            span(class='time') #{moment(one.last_transfer_date).format('HH:mm')} 
+          span(class='small') (transfered from #{one.previous_holder})

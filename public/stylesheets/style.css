@@ -133,3 +133,16 @@ input[type=checkbox] {
 }
 
 
+.small {
+  color: grey;
+  font-size: 65%;
+}
+
+.keyNameRow {
+  display: block;
+}
+
+.keyInfoRow {
+  display: block;
+  margin: 4px 0px 20px 0px;
+}
