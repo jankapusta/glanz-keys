@@ -57,7 +57,7 @@ router.post('/submit', function(req, res, next) {
       // update current one
       OfficeKey.updateOne({_id: officeKeyToUpdate._id}, officeKeyToSet).then(result => {
         if(!result.ok) return renderError(res, 'Failure');
-        res.redirect('/transfer/done?key_id=' + officeKeyToUpdate._id);
+        res.redirect('/key/done?key_id=' + officeKeyToUpdate._id);
       });
 
 
