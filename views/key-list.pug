@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  div(class='right-menu') 
-    a(href='/admin/key/add', class='button-secondary pure-button inline') New key
-    a(href='/transfer', class='button-secondary pure-button inline') Make transfer
-  h2= title
+  h2
+    a(href='/admin/key/add', class='button-secondary pure-button inline') +
+    | 
+    | #{title}
   div(class='only-desktop')
     table(class='keysList pure-table pure-table-striped')
       thead 

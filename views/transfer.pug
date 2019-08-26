@@ -2,9 +2,6 @@ extends layout
 
 block content
   form(class='keyTransfer pure-form' action='/transfer/submit' method='post') 
-    if (adminUser)
-      div(class='right-menu') 
-        a(href='/admin', class='button-secondary pure-button inline') Admin as #{adminUser}   
     h2= title     
     div(class='pure-control-group')
         label(class='keySelect' for='key-location') Which key? 

@@ -10,5 +10,8 @@ html
     div(class='header')
       h1= pageTitle
       if (adminUser)
-        div(class='adminName') Admin as #{adminUser}
+        div(class='adminName') 
+          a(href='/transfer') Make transfer
+          |  |  
+          a(href='/admin') Admin as #{adminUser}
     block content

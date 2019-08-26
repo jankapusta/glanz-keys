@@ -11,7 +11,24 @@ a {
 
 .header {
   background-color: #f8f8f8;
-  padding: 6px;
+  padding: 6px 0px 14px 0px;
+}
+
+.header a {
+  text-decoration: none;
+  color: rgb(66, 184, 221);
+}
+
+.header a:hover {
+  color: rgb(42, 113, 134);
+}
+
+.header .adminName {
+  position: absolute;
+  top:54px;
+  right: 10px;
+  font-size: 13px;
+  color:rgb(190, 190, 190);
 }
 
 h1 {
@@ -85,6 +102,12 @@ tr:hover td {
 
 .pure-button {
   margin-left: 10px;
+}
+
+h2 .pure-button {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
 }
 
 .pure-button.inline {
@@ -162,12 +185,4 @@ h2.editKeyForm {
 
 .mobileRow:nth-child(2n) {
   background: #f2f2f2;
-}
-
-.adminName {
-  position: absolute;
-  top:10px;
-  right: 15px;
-  font-size: 13px;
-  color:grey;
 }
