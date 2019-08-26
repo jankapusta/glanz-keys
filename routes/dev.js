@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
   console.warn(req.cookies);
 
   res.send({
-    //h: req.headers,
-    //c: req.cookies,
+    h: req.headers,
+    c: req.cookies,
     //u: getUserName()
     u:getUserName(req)
   });
