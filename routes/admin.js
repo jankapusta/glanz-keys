@@ -147,7 +147,7 @@ module.exports = router;
 
 const getUserName = (req) => {
   
-  const base64AuthData = req.headers['Authorization'];
+  const base64AuthData = req.headers['authorization'] || req.headers['Authorization'];
   if(!base64AuthData) {
     return '';
   }
@@ -156,7 +156,7 @@ const getUserName = (req) => {
   let usernamePwdPair = buff.toString('utf-8');
   const usernamePwdArray = usernamePwdPair.split(':');
   return usernamePwdArray[0];
-  
+
 }
 
 const handleError = (res, err, backLink = '') => {
