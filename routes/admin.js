@@ -4,20 +4,22 @@ var router = express.Router();
 const OfficeKey = require("../models/OfficeKey.js");
 const Transfer = require("../models/Transfer.js");
 
+const renderError = require("../functions/renderError.js");
+const getUserName = require("../functions/getUserName.js");
 
 router.get('/key/view', function(req, res, next) {
 
   OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
-    if (err) return handleError(res, err);
+    if (err) return renderError(res, err, '/admin');
 
     Transfer.find(
       {key_id: officeKey._id}, 
       'previous_holder next_holder transfer_date', 
       function (err, transfers) {
-        if (err) return handleError(err);
+        if (err) return renderError(res, err, '/admin');
         res.render('key-detail', { 
           pageTitle: 'Glanz Berlin',
-          adminUser: req.cookies.adminName,
+          adminUser: getUserName(req),
           transfers: transfers,
           officeKey: officeKey,
           moment: require( 'moment' )
@@ -30,13 +32,13 @@ router.get('/key/view', function(req, res, next) {
 router.post('/key/update', function(req, res, next) {
   
   OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKey) => {
-    if (err || !officeKey) return handleError(res, err || 'Key not found');
+    if (err || !officeKey) return renderError(res, err || 'Key not found', '/admin');
     officeKey.key_name = req.body.key_name;
     OfficeKey.updateOne({'_id': officeKey._id}, officeKey, (err) => {
-      if (err) return handleError(res, err);
+      if (err) return renderError(res, err, '/admin');
       res.render('key-update-done', { 
         pageTitle: 'Glanz Berlin',
-        adminUser: req.cookies.adminName,
+        adminUser: getUserName(req),
         title: 'Key renamed',
         officeKey: officeKey,
       });
@@ -47,12 +49,12 @@ router.post('/key/update', function(req, res, next) {
 router.post('/key/delete', function(req, res, next) {
   
   OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKey) => {
-    if (err || !officeKey) return handleError(res, err || 'You have to tick the checkbox');
+    if (err || !officeKey) return renderError(res, err || 'You have to tick the checkbox');
     OfficeKey.deleteOne({'_id': officeKey._id}, (err) => {
-      if (err) return handleError(res, err);
+      if (err) return renderError(res, err, '/admin');
       res.render('key-delete-done', { 
         pageTitle: 'Glanz Berlin',
-        adminUser: req.cookies.adminName,
+        adminUser: getUserName(req),
         title: 'Key deleted',
         officeKey: officeKey,
       });
@@ -63,7 +65,7 @@ router.post('/key/delete', function(req, res, next) {
 router.post('/key/add/submit', function(req, res, next) {
 
   if(!req.body.key_name) {
-    return handleError(res, 'Please, enter a key name. ', '/admin/key/add');
+    return renderError(res, 'Please, enter a key name. ', '/admin/key/add');
   } 
 
   const officeKeyToSet = {
@@ -76,7 +78,7 @@ router.post('/key/add/submit', function(req, res, next) {
   newKey = new OfficeKey(officeKeyToSet);
   newKey.save().then(result => {
     console.log(result);
-    if(!result._id) return handleError(res, 'Failure', '/admin/key/add');
+    if(!result._id) return renderError(res, 'Failure', '/admin/key/add');
 
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const historyRecord = {
@@ -101,10 +103,10 @@ router.post('/key/add/submit', function(req, res, next) {
 router.get('/key/add/done', function(req, res, next) {
 
   OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
-    if (err) return handleError(res, err);
+    if (err) return renderError(res, err, '/admin');
     res.render('key-add-done', { 
       pageTitle: 'Glanz Berlin',
-      adminUser: req.cookies.adminName,
+      adminUser: getUserName(req),
       title: 'Key added',
       officeKey: officeKey,
     });
@@ -116,7 +118,7 @@ router.get('/key/add', function(req, res, next) {
 
   res.render('key-add', { 
     pageTitle: 'Glanz Berlin',
-    adminUser: req.cookies.adminName,
+    adminUser: getUserName(req),
     title: 'Add new key',
   });
 
@@ -125,16 +127,14 @@ router.get('/key/add', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
 
-  
-  res.cookie('adminName', getUserName(req) || '');
   OfficeKey.find(
     {}, 
     'key_name previous_holder current_holder last_transfer_date', 
     function (err, officeKeys) {
-      if (err) return handleError(err);
+      if (err) return renderError(res, err, '/admin');
       res.render('key-list', { 
         pageTitle: 'Glanz Berlin',
-        adminUser: req.cookies.adminName,
+        adminUser: getUserName(req),
         title: 'List of keys',
         keys: officeKeys,
         moment: require( 'moment' )
@@ -144,28 +144,3 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-
-const getUserName = (req) => {
-  
-  const base64AuthData = req.headers['authorization'] || req.headers['Authorization'];
-  if(!base64AuthData) {
-    return '';
-  }
-  const matches = base64AuthData.split('Basic ');
-  let buff = Buffer.from(matches[1], 'base64');  
-  let usernamePwdPair = buff.toString('utf-8');
-  const usernamePwdArray = usernamePwdPair.split(':');
-  return usernamePwdArray[0];
-
-}
-
-const handleError = (res, err, backLink = '') => {
-
-  res.render('error', {
-    pageTitle: 'Glanz Berlin',
-    error: err,
-    back: backLink || '/admin'
-  });
-  res.send();
-
-}

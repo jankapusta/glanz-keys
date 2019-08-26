@@ -4,10 +4,13 @@ var router = express.Router();
 const OfficeKey = require("../models/OfficeKey.js");
 const Transfer = require("../models/Transfer.js");
 
+const renderError = require("../functions/renderError.js");
+const getUserName = require("../functions/getUserName.js");
+
 router.get('/done', function(req, res, next) {
 
   OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
-    if (err) return handleError(res, err);
+    if (err) return renderError(res, err);
     res.render('transfer-done', { 
       pageTitle: 'Glanz Berlin',
       title: 'Key holder updated',
@@ -19,11 +22,11 @@ router.get('/done', function(req, res, next) {
 router.post('/submit', function(req, res, next) {
 
   if(!req.body.key_id || !req.body.holder) {
-    return handleError(res, 'Please, choose key and enter the name. ');
+    return renderError(res, 'Please, choose key and enter the name. ');
   } 
 
   OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKeyToUpdate) => {
-      if (err) return handleError(res, err);
+      if (err) return renderError(res, err);
 
       var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -53,7 +56,7 @@ router.post('/submit', function(req, res, next) {
 
       // update current one
       OfficeKey.updateOne({_id: officeKeyToUpdate._id}, officeKeyToSet).then(result => {
-        if(!result.ok) return handleError(res, 'Failure');
+        if(!result.ok) return renderError(res, 'Failure');
         res.redirect('/transfer/done?key_id=' + officeKeyToUpdate._id);
       });
 
@@ -72,7 +75,7 @@ router.get('/', function(req, res, next) {
       selectedKey: selectedKey, 
       holderName: req.cookies.keyHolderName || '',
       keys: officeKeys,
-      adminUser: req.cookies.adminName
+      adminUser: getUserName(req)
     });
   }
   
@@ -80,11 +83,11 @@ router.get('/', function(req, res, next) {
     {}, 
     'key_name current_holder', 
     function (err, officeKeys) {
-      if (err) return handleError(res, err);
+      if (err) return renderError(res, err);
 
       if(req.query.key_id) {
         OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
-          if (err) return handleError(res, err);
+          if (err) return renderError(res, err);
           rednerTransfer(req, officeKeys, officeKey);
         });
       } else {
@@ -96,15 +99,3 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
-
-
-const handleError = (res, err) => {
-
-  res.render('error', {
-    pageTitle: 'Glanz Berlin',
-    error: err,
-    back: '/transfer'
-  });
-  res.send();
-
-}
