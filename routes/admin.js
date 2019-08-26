@@ -4,7 +4,6 @@ var router = express.Router();
 const OfficeKey = require("../models/OfficeKey.js");
 const Transfer = require("../models/Transfer.js");
 
-const BASIC_AUTH_USER_HEADER_VAR = 'X-User';
 
 router.get('/key/view', function(req, res, next) {
 
@@ -18,6 +17,7 @@ router.get('/key/view', function(req, res, next) {
         if (err) return handleError(err);
         res.render('key-detail', { 
           pageTitle: 'Glanz Berlin',
+          adminUser: req.cookies.adminName,
           transfers: transfers,
           officeKey: officeKey,
           moment: require( 'moment' )
@@ -36,6 +36,7 @@ router.post('/key/update', function(req, res, next) {
       if (err) return handleError(res, err);
       res.render('key-update-done', { 
         pageTitle: 'Glanz Berlin',
+        adminUser: req.cookies.adminName,
         title: 'Key renamed',
         officeKey: officeKey,
       });
@@ -51,6 +52,7 @@ router.post('/key/delete', function(req, res, next) {
       if (err) return handleError(res, err);
       res.render('key-delete-done', { 
         pageTitle: 'Glanz Berlin',
+        adminUser: req.cookies.adminName,
         title: 'Key deleted',
         officeKey: officeKey,
       });
@@ -102,6 +104,7 @@ router.get('/key/add/done', function(req, res, next) {
     if (err) return handleError(res, err);
     res.render('key-add-done', { 
       pageTitle: 'Glanz Berlin',
+      adminUser: req.cookies.adminName,
       title: 'Key added',
       officeKey: officeKey,
     });
@@ -113,6 +116,7 @@ router.get('/key/add', function(req, res, next) {
 
   res.render('key-add', { 
     pageTitle: 'Glanz Berlin',
+    adminUser: req.cookies.adminName,
     title: 'Add new key',
   });
 
@@ -121,7 +125,8 @@ router.get('/key/add', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
 
-  res.cookie('adminName', req.headers[BASIC_AUTH_USER_HEADER_VAR] || '');
+  
+  res.cookie('adminName', getUserName(req) || '');
   OfficeKey.find(
     {}, 
     'key_name previous_holder current_holder last_transfer_date', 
@@ -129,6 +134,7 @@ router.get('/', function(req, res, next) {
       if (err) return handleError(err);
       res.render('key-list', { 
         pageTitle: 'Glanz Berlin',
+        adminUser: req.cookies.adminName,
         title: 'List of keys',
         keys: officeKeys,
         moment: require( 'moment' )
@@ -139,6 +145,16 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 
 
+const getUserName = (req) => {
+  
+  const base64AuthData = req.headers['Authorization'];
+  if(!base64AuthData) {
+    return '';
+  }
+  let buff = Buffer.from(base64AuthData, 'base64');  
+  let usernamePwdPair = buff.toString('utf-8');
+  return usernamePwdPair;
+}
 
 const handleError = (res, err, backLink = '') => {
 
