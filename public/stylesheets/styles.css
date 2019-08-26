@@ -11,7 +11,8 @@ a {
 
 .header {
   background-color: #f8f8f8;
-  padding: 6px 0px 14px 0px;
+  padding: 6px 0px 12px 0px;
+  position: relative;
 }
 
 .header a {
@@ -25,7 +26,7 @@ a {
 
 .header .adminName {
   position: absolute;
-  top:54px;
+  bottom:5px;
   right: 10px;
   font-size: 13px;
   color:rgb(190, 190, 190);
