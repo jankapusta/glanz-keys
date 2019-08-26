@@ -50,10 +50,6 @@
   .pure-form .pure-button,   .pure-form .pure-button[type=submit] {
     margin-bottom: 80px;
   }
-  
-  .pure-button, .pure-button.inline {
-    margin-top: 8px;
-  }
 
   .right-menu {
     display: block;
