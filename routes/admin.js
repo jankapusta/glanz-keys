@@ -151,9 +151,12 @@ const getUserName = (req) => {
   if(!base64AuthData) {
     return '';
   }
-  let buff = Buffer.from(base64AuthData, 'base64');  
+  const matches = base64AuthData.split('Basic ');
+  let buff = Buffer.from(matches[1], 'base64');  
   let usernamePwdPair = buff.toString('utf-8');
-  return usernamePwdPair;
+  const usernamePwdArray = usernamePwdPair.split(':');
+  return usernamePwdArray[0];
+  
 }
 
 const handleError = (res, err, backLink = '') => {
