@@ -1,24 +1,25 @@
 extends layout
 
 block content
-  form(class='keyTransfer pure-form' action='/transfer/submit' method='post')
-    
-        h2= title 
-            
-        div(class='pure-control-group')
-            label(class='keySelect' for='key-location') Which key? 
-            if (selectedKey) 
-              span(class='keyName') #{selectedKey.key_name}
-              input(type='hidden' value=selectedKey._id name='key_id')
-            else 
-              select(id='key-location' name='key_id')
-                  option(value='' selected=1) - choose key -
-                  for one in keys
-                      option(value=one.id) #{one.key_name} (with #{one.current_holder})
-        div(class='pure-control-group')                
-            label(class='nameInput' for='holder') Who is taking it over:
-            input(id='holder' type='text' value=holderName placeholder='New holder name' name='holder')
-        div(class='pure-control-group') 
-            button(type='submit' class='pure-button pure-button-primary') Submit Transfer
+  form(class='keyTransfer pure-form' action='/transfer/submit' method='post') 
+    if (adminUser)
+      div(class='right-menu') 
+        a(href='/admin', class='button-secondary pure-button inline') Admin as #{adminUser}   
+    h2= title     
+    div(class='pure-control-group')
+        label(class='keySelect' for='key-location') Which key? 
+        if (selectedKey) 
+          span(class='keyName') #{selectedKey.key_name}
+          input(type='hidden' value=selectedKey._id name='key_id')
+        else 
+          select(id='key-location' name='key_id')
+              option(value='' selected=1) - choose key -
+              for one in keys
+                  option(value=one.id) #{one.key_name} (with #{one.current_holder})
+    div(class='pure-control-group')                
+        label(class='nameInput' for='holder') Who is taking it over:
+        input(id='holder' type='text' value=holderName placeholder='New holder name' name='holder')
+    div(class='pure-control-group') 
+        button(type='submit' class='pure-button pure-button-primary') Submit Transfer
 
 

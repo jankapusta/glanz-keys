@@ -4,6 +4,8 @@ var router = express.Router();
 const OfficeKey = require("../models/OfficeKey.js");
 const Transfer = require("../models/Transfer.js");
 
+const BASIC_AUTH_USER_HEADER_VAR = 'X-User';
+
 router.get('/key/view', function(req, res, next) {
 
   OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
@@ -119,6 +121,7 @@ router.get('/key/add', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
 
+  res.cookie('adminName', req.headers[BASIC_AUTH_USER_HEADER_VAR] || '');
   OfficeKey.find(
     {}, 
     'key_name previous_holder current_holder last_transfer_date', 

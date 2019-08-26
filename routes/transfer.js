@@ -65,13 +65,14 @@ router.post('/submit', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
   
-  const rednerTransfer = (holderName, officeKeys, selectedKey = false) => {
+  const rednerTransfer = (req, officeKeys, selectedKey = false) => {
     res.render('transfer', { 
       pageTitle: 'Glanz Berlin',
       title: 'Transfer key',
       selectedKey: selectedKey, 
-      holderName: holderName || '',
+      holderName: req.cookies.keyHolderName || '',
       keys: officeKeys,
+      adminUser: req.cookies.adminName
     });
   }
   
@@ -84,10 +85,10 @@ router.get('/', function(req, res, next) {
       if(req.query.key_id) {
         OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
           if (err) return handleError(res, err);
-          rednerTransfer(req.cookies.keyHolderName, officeKeys, officeKey);
+          rednerTransfer(req, officeKeys, officeKey);
         });
       } else {
-        rednerTransfer(req.cookies.keyHolderName, officeKeys);
+        rednerTransfer(req, officeKeys);
       }
     })
   
