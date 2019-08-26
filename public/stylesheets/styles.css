@@ -83,6 +83,10 @@ tr:hover td {
   margin: 12px 30px 0px 10px;
 }
 
+.pure-button {
+  margin-left: 10px;
+}
+
 .pure-button.inline {
   padding: 5px 20px;
   margin-top: -4px;
