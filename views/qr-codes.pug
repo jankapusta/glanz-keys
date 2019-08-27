@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  div(class='qrCodesPage')
+    for one in images
+      div(class='qrCodeItem')
+        div(class='qrCodeName')= one.short
+        div(class='qrCodeImage')
+          img(src='/images/qr/' + one.filename class='qrCode') 
