@@ -1,4 +1,6 @@
 
+const LOW_PERMISSION_USER = 'glanz';
+
 module.exports =  (req) => {
   
   if(process.env.ADMIN_OPEN) {
@@ -12,6 +14,6 @@ module.exports =  (req) => {
   let buff = Buffer.from(matches[1], 'base64');  
   let usernamePwdPair = buff.toString('utf-8');
   const usernamePwdArray = usernamePwdPair.split(':');
-  return usernamePwdArray[0];
+  return usernamePwdArray[0] === LOW_PERMISSION_USER ? false : usernamePwdArray[0];
 
 }
