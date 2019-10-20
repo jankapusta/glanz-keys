@@ -7,8 +7,7 @@ module.exports =  (req) => {
     return 'Admin';
   }
 
-  return req.auth.user;
-
+  // NGINX stuff - disabled
   // const base64AuthData = req.headers['authorization'] || req.headers['Authorization'];
   // if(!base64AuthData) {
   //   return '';
@@ -17,6 +16,9 @@ module.exports =  (req) => {
   // let buff = Buffer.from(matches[1], 'base64');  
   // let usernamePwdPair = buff.toString('utf-8');
   // const usernamePwdArray = usernamePwdPair.split(':');
-  // return usernamePwdArray[0] === LOW_PERMISSION_USER ? false : usernamePwdArray[0];
+  // const username = usernamePwdArray[0];
+
+  const username = req.auth.user;
+  return username === LOW_PERMISSION_USER ? false : username;
 
 }
