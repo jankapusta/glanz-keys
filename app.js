@@ -31,12 +31,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(logger('dev'));
 
-app.use(basicAuth({
-  users: { 
-    'Glanz': 'Glanzberlin19!',  
-    'glanz': 'glanz',
-  }
-}))
+// app.use(basicAuth({
+//   users: { 
+//     'Glanz': 'Glanzberlin19!',  
+//     'glanz': 'glanz',
+//   }
+// }))
 
 
 app.use(express.json());
