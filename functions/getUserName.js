@@ -18,7 +18,7 @@ module.exports =  (req) => {
   // const usernamePwdArray = usernamePwdPair.split(':');
   // const username = usernamePwdArray[0];
 
-  const username = req.auth.user;
+  const username = req.auth ? req.auth.user : false;
   return username === LOW_PERMISSION_USER ? false : username;
 
 }

@@ -31,15 +31,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(logger('dev'));
 
-app.use(basicAuth({
-  users: { 
-    'Glanz': 'Glanzberlin19!',  
-    'glanz': 'glanz',
-  },
-  challenge: true,
-  realm: 'glanzberlinweb',
-}))
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -47,9 +38,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/key', transferRouter);
-app.use('/admin', adminRouter);
 app.use('/dev', devRouter);
+
+app.use('/key', basicAuth({
+  users: { 
+    'glanz': 'glanz',
+    'Glanz': 'Glanzberlin19!', 
+  },
+  challenge: true,
+  realm: 'glanzberlinweb',
+}), transferRouter);
+
+app.use('/admin', basicAuth({
+  users: { 
+    'Glanz': 'Glanzberlin19!',  
+  },
+  challenge: true,
+  realm: 'glanzberlinweb',
+}), adminRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
