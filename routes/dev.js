@@ -63,6 +63,8 @@ router.get('/images', function(req, res, next) {
 'Rt B.png',
 'Rt C.png',
 'Rt D.png',
+'RtS A.png',
+'RtS B.png',
 'Straus.png',
 'Vn A.png',
 'Vn B.png',
