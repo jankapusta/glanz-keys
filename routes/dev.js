@@ -35,6 +35,7 @@ router.get('/images', function(req, res, next) {
 'Huga B.png',
 'Huga C.png',
 'Huga D.png',
+'Huga E.png',
 'Inv1.png',
 'Inv2.png',
 'K A.png',
