@@ -21,6 +21,7 @@ router.get('/images', function(req, res, next) {
   let images = [
     'Ar.png',
 'Atl.png',
+'AltGt.png',
 '99 A.png',
 '99 B.png',
 'Cash A.png',
