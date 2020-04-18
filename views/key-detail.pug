@@ -43,16 +43,16 @@ block content
             label(for='shortName' class='keyNameLabel') Short name:    
             input(type='text' id='shortName' name='short_name' value=officeKey.short_name) 
           div(class='pure-control-group')    
-            label(for='qrCode' class='keyNameLabel') QR code:
+            label(for='qrCodeUpload' class='keyNameLabel') QR code:
             if (officeKey.qr_code.filename)
               span(id='fileInfo'  title='QR code exists')
                 a(href='/images/qr/' + officeKey.qr_code.filename target='_blank')
-                  img(src='/images/qr/' + officeKey.qr_code.filename class='qrCode')  
+                  img(src='/images/qr/' + officeKey.qr_code.filename)  
                 |   
-                button(type='button' class='pure-button button-secondary copy' onclick='document.getElementById("qrCode").classList.remove("hidden");document.getElementById("fileInfo").classList.add("hidden")') Upload PNG file 
-              input(type='file' class='hidden' id='qrCode' name='qr_code')   
+                button(type='button' class='pure-button button-secondary copy' onclick='document.getElementById("qrCodeUpload").classList.remove("hidden");document.getElementById("fileInfo").classList.add("hidden")') Upload PNG file 
+              input(type='file' class='hidden' id='qrCodeUpload' name='qr_code')   
             else 
-              input(type='file' id='qrCode' name='qr_code')  
+              input(type='file' id='qrCodeUpload' name='qr_code')  
           div(class='pure-control-group')    
              div(class='hint')
                strong How to make QR code?  
