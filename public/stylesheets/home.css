@@ -1,0 +1,10 @@
+body, p {
+  font-family: monospace,sans-serif;
+  text-align: center;
+}
+
+body {
+  width: 400px;
+  margin: 130px auto;
+}
+

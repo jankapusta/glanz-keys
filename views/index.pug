@@ -1,6 +1,14 @@
-extends layout
+doctype html
+html
+  head
+    title='Glanz Berlin'
+    link(rel='stylesheet', href='/stylesheets/home.css?v=2')   
+    meta(content="width=device-width, initial-scale=1" name="viewport")   
+  body
+    block content
+      h1 Glanz Berlin
+      p We are vibrant office-cleaning company operating in Berlin. 
+      | We don't run any marketing as we rely solely on personal recommendations from our customers. 
+      p Feel free to  
+        a(href='https://www.linkedin.com/company/glanz-berlin/about/') contact us
 
-block content
-  h2 Welcome to Glanz 
-  p
-    a(href='/key', class='button-secondary pure-button inline')  Transfer key to a colleague
