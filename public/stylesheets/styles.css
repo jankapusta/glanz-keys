@@ -45,6 +45,12 @@ h2 {
   color:grey;
 }
 
+h3 {
+  margin: 7px 0px 14px 0px;
+  text-transform: uppercase;
+  color:grey;
+}
+
 table {
   font-size: 16px;
 }
@@ -185,7 +191,7 @@ h2.editKeyForm {
 }
 
 .mobileRow:nth-child(2n) {
-  background: #f2f2f2;
+  background: #d7eeff;
 }
 
 
@@ -212,6 +218,43 @@ h2.editKeyForm {
   width: 140px;
 }
 
+.panelBoard {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto;
+}
+.panel {
+  padding: 10px 10px;
+  margin: 8px 3px;
+  background-color: #f3f9ff;
+  border-radius: 7px;
+}
+
+.bottom {
+  clear: both;
+  padding-top:30px;
+}
+
+form #qrCode {
+  max-width: 220px;
+}
+
+.fileInfo {
+  display: inline-block;
+}
+
+.fileInfo img {
+  width: 20px;
+  position: relative;
+  top: 4px;
+  margin-left: 3px;
+}
+
+.fileInfo.missing {
+  background-color: #ca3c3c;
+  color: white;
+  width: 12px;
+}
 
 @media print {
 
@@ -240,3 +283,5 @@ h2.editKeyForm {
 
 
 }
+
+

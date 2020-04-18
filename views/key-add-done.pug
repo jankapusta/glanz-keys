@@ -4,9 +4,10 @@ block content
     div(class='success')  
       h2 All went well!
       p New key
-        strong(class='keyName') #{officeKey.key_name} 
+        a(href='/admin/key/view?key_id=' + officeKey._id class='keyName' title='See key details') #{officeKey.key_name} 
         | has been added. Now with 
         strong #{officeKey.current_holder}
         |. 
       p Thank you! 
-        a(href='/admin/key/add' class='button-secondary pure-button inline') back 
+        a(href='/admin' class='button-secondary pure-button inline') back to list 
+        a(href='/admin/key/add' class='button-secondary pure-button inline') add next key 

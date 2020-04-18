@@ -1,3 +1,4 @@
+var mime = require('mime-types');
 var express = require('express');
 var router = express.Router();
 
@@ -34,8 +35,21 @@ router.post('/key/update', function(req, res, next) {
   OfficeKey.findOne({'_id': req.body.key_id}, (err, officeKey) => {
     if (err || !officeKey) return renderError(res, err || 'Key not found', '/admin');
     officeKey.key_name = req.body.key_name;
+    officeKey.short_name = req.body.short_name;
+    if (req.files && req.files.qr_code) {
+      console.log('uploading: ' + req.files.qr_code.name);
+      console.log(req.files.qr_code.mimetype);
+      officeKey.qr_code = {
+        data: req.files.qr_code.data,
+        content_type: req.files.qr_code.mimetype,
+        filename: 'key_' + officeKey._id + '.' + mime.extension(req.files.qr_code.mimetype),
+      }
+    }
     OfficeKey.updateOne({'_id': officeKey._id}, officeKey, (err) => {
       if (err) return renderError(res, err, '/admin');
+      if (req.files && req.files.qr_code) {
+        req.files.qr_code.mv('./public/images/qr/' + officeKey.qr_code.filename);
+      }
       res.render('key-update-done', { 
         pageTitle: 'Glanz Berlin',
         adminUser: getUserName(req),
@@ -72,6 +86,7 @@ router.post('/key/add/submit', function(req, res, next) {
     current_holder: req.body.holder,
     previous_holder: '-',
     key_name: req.body.key_name,
+    short_name: req.body.short_name,
     last_transfer_date: Date.now(),
   };
   // create new one
@@ -125,6 +140,20 @@ router.get('/key/add', function(req, res, next) {
 
 });
 
+router.get('/qr/list', function(req, res, next) {
+
+  OfficeKey.find(
+    {}, 
+    'key_name short_name qr_code', 
+    function (err, officeKeys) {
+      if (err) return renderError(res, err, '/admin');
+      res.render('qr-codes', { 
+        title: 'List of QR codes',
+        keys: officeKeys,
+      });
+    }).sort('key_name')
+});
+
 router.get('/', function(req, res, next) {
 
   OfficeKey.find(
@@ -143,4 +172,3 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
-

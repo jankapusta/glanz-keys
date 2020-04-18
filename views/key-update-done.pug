@@ -3,6 +3,6 @@ extends layout
 block content
     div(class='success')  
       p New key name is
-        strong(class='keyName') #{officeKey.key_name} 
+        a(href='/admin/key/view?key_id=' + officeKey._id class='keyName' title='See key details') #{officeKey.key_name} 
       p Thank you! 
-        a(href='/admin' class='button-secondary pure-button inline') back 
+        a(href='/admin' class='button-secondary pure-button inline') back to list

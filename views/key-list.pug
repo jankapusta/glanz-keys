@@ -17,7 +17,7 @@ block content
         for one in keys
           tr
             td 
-              a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See trasfers history') #{one.key_name}
+              a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See key details') #{one.key_name}
             td #{one.current_holder}
             td #{moment(one.last_transfer_date).format('ddd MMM D')} 
               span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
@@ -27,7 +27,7 @@ block content
     for one in keys
       div(class='mobileRow')
         span(class='keyNameRow') 
-          a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See trasfers history') #{one.key_name}
+          a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See key details') #{one.key_name}
           span 
             span(class='small') with  
             | #{one.current_holder}

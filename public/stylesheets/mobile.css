@@ -58,5 +58,10 @@
     margin-bottom: 30px;
   }
 
+  .panelBoard {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+  }
+
 }
 

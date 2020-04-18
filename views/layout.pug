@@ -13,5 +13,8 @@ html
         div(class='adminName') 
           a(href='/key') Transfer key
           |  |  
-          a(href='/admin') To admin as #{adminUser}
+          a(href='/admin') Key admin
+          |  |  
+          a(href='/admin/qr/list' target='_blank') QR codes
+          |  | Signed as #{adminUser}
     block content

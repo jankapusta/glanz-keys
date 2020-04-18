@@ -2,58 +2,70 @@
 extends layout
 
 block content
-  h2 History for
-      strong(class='keyName') #{officeKey.key_name} 
-  div(class='only-desktop')    
-    table(class='keysList pure-table pure-table-striped')
-      thead 
-        tr
-          th Date
-          th Transfer from
-          th Transfer to
-      tbody 
+  h2 Key  
+    strong(class='keyName') #{officeKey.key_name}
+  
+  div(class='panelBoard')
+    
+    div(class='panel')
+      h3 Transfer history 
+      
+      div(class='pseudoTable')
         for one in transfers
-          tr
-            td #{moment(one.transfer_date).format('ddd MMM D')} 
-              span(class='time') #{moment(one.transfer_date).format('HH:mm')}
-            td #{one.previous_holder}
-            td #{one.next_holder}
-  div(class='only-mobile pseudoTable')
-    for one in transfers
-      if (one.previous_holder=='- created -')
-        div(class='mobileRow')
-          span(class='keyNameRow') 
-            span(class='small') started with  
-            | #{one.next_holder} 
-          span(class='keyInfoRow') 
-            span 
-              span(class='small') on #{moment(one.transfer_date).format('ddd MMM D')} 
-              span(class='time') #{moment(one.transfer_date).format('HH:mm')} 
-      else 
-        div(class='mobileRow')
-          span(class='keyNameRow') 
-            span(class='small') from #{one.previous_holder} 
-            span(class='small') to  
-            | #{one.next_holder} 
-          span(class='keyInfoRow') 
-            span 
-              span(class='small') on #{moment(one.transfer_date).format('ddd MMM D')} 
-              span(class='time') #{moment(one.transfer_date).format('HH:mm')}           
-  p
-    a(href='/admin' class='button-secondary pure-button') back  
+          if (one.previous_holder=='- created -')
+            div(class='mobileRow')
+              span(class='keyNameRow') 
+                span(class='small') started with  
+                | #{one.next_holder} 
+              span(class='keyInfoRow') 
+                span 
+                  span(class='small') on #{moment(one.transfer_date).format('ddd MMM D')} 
+                  span(class='time') #{moment(one.transfer_date).format('HH:mm')} 
+          else 
+            div(class='mobileRow')
+              span(class='keyNameRow') 
+                span(class='small') from #{one.previous_holder} 
+                span(class='small') to  
+                | #{one.next_holder} 
+              span(class='keyInfoRow') 
+                span 
+                  span(class='small') on #{moment(one.transfer_date).format('ddd MMM D')} 
+                  span(class='time') #{moment(one.transfer_date).format('HH:mm')}           
+    
+    div(class='panel')
+      h3(class='editKeyForm') Edit key details
+      form(class='pure-form pure-form-aligned' action='/admin/key/update' method='post' encType="multipart/form-data")
+          div(class='pure-control-group')  
+            input(type='hidden' name='key_id' value=officeKey._id) 
+            label(for='keyName' class='keyNameLabel') Key name:    
+            input(type='text' id='keyName' name='key_name' value=officeKey.key_name) 
+          div(class='pure-control-group')    
+            label(for='shortName' class='keyNameLabel') Short name:    
+            input(type='text' id='shortName' name='short_name' value=officeKey.short_name) 
+          div(class='pure-control-group')    
+            label(for='qrCode' class='keyNameLabel') QR code:
+              if (officeKey.qr_code.filename)
+                span(class='fileInfo exists' title='QR code exists')
+                  a(href='/images/qr/' + officeKey.qr_code.filename)
+                    img(src='/images/qr/' + officeKey.qr_code.filename class='qrCode')  
+              else 
+                span(class='fileInfo missing' title='QR missing') -
+            input(type='file' id='qrCode' name='qr_code')  
+            
+          div(class='pure-control-group')    
+            button(class='pure-button-primary pure-button') Save
+          
+    
+    div(class='panel')
+      h3(class='editKeyForm') Danger zone
+      form(class='pure-form pure-form' action='/admin/key/delete' method='post')
+          div(class='pure-control-group')  
+            label(for='delete')    
+              input(type='checkbox' id='delete' name='key_id' value=officeKey._id) 
+              | Delete this key   
+          div(class='pure-control-group')        
+            button(class='button-error pure-button') Delete
 
 
-  h2(class='editKeyForm') Edit key name
-  form(class='pure-form' action='/admin/key/update' method='post')
-      div(class='pure-control-group')  
-        input(type='hidden' name='key_id' value=officeKey._id) 
-        label(for='keyName' class='keyNameLabel') Key name:    
-        input(type='text' id='keyName' name='key_name' value=officeKey.key_name) 
-        button(class='pure-button-primary pure-button') Save
-  h2(class='editKeyForm') Danger zone
-  form(class='pure-form pure-form' action='/admin/key/delete' method='post')
-      div(class='pure-control-group')  
-        label(for='delete')    
-          input(type='checkbox' id='delete' name='key_id' value=officeKey._id) 
-          | Delete this key     
-        button(class='button-error pure-button') Delete
+  p(class='bottom')
+    a(href='/admin' class='button-secondary pure-button') back to list         
