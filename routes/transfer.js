@@ -13,7 +13,7 @@ router.get('/done', function(req, res, next) {
     if (err) return renderError(res, err);
     res.render('transfer-done', { 
       pageTitle: 'Glanz Berlin',
-      title: 'Key holder updated',
+      title: 'Key transfer done',
       officeKey: officeKey,
     });
   });
@@ -71,7 +71,7 @@ router.get('/', function(req, res, next) {
   const rednerTransfer = (req, officeKeys, selectedKey = false) => {
     res.render('transfer', { 
       pageTitle: 'Glanz Berlin',
-      title: 'Transfer key',
+      title: 'Transfer a key',
       selectedKey: selectedKey, 
       holderName: req.cookies.keyHolderName || '',
       keys: officeKeys,

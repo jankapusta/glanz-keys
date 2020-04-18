@@ -73,7 +73,7 @@ router.get('/make-images', function(req, res, next) {
       'qr_code key_name short_name', 
       function (err, officeKeys) {
       res.render('qr-codes', { 
-        title: 'List of QR codes',
+        title: 'QR codes',
         keys: officeKeys,
       });
     });
@@ -91,7 +91,7 @@ router.get('/show-images', function(req, res, next) {
     }
   })
   res.render('qr-codes', { 
-    title: 'List of QR codes',
+    title: 'QR codes',
     keys: officeKeys,
   });
 })

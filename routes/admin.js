@@ -16,11 +16,12 @@ router.get('/key/view', function(req, res, next) {
 
     Transfer.find(
       {key_id: officeKey._id}, 
-      'previous_holder next_holder transfer_date', 
+      'previous_holder next_holder transfer_date key_name', 
       function (err, transfers) {
         if (err) return renderError(res, err, '/admin');
         res.render('key-detail', { 
           pageTitle: 'Glanz Berlin',
+          title: 'Key ' + officeKey.key_name + ' details',
           adminUser: getUserName(req),
           transfers: transfers,
           officeKey: officeKey,
@@ -54,7 +55,7 @@ router.post('/key/update', function(req, res, next) {
       res.render('key-update-done', { 
         pageTitle: 'Glanz Berlin',
         adminUser: getUserName(req),
-        title: 'Key renamed',
+        title: 'Key updated',
         officeKey: officeKey,
       });
     });
@@ -135,7 +136,7 @@ router.get('/key/add', function(req, res, next) {
   res.render('key-add', { 
     pageTitle: 'Glanz Berlin',
     adminUser: getUserName(req),
-    title: 'Add new key',
+    title: 'Add a new key',
   });
 
 
@@ -149,7 +150,7 @@ router.get('/qr/list', function(req, res, next) {
     function (err, officeKeys) {
       if (err) return renderError(res, err, '/admin');
       res.render('qr-codes', { 
-        title: 'List of QR codes',
+        title: 'QR codes',
         keys: officeKeys,
       });
     }).sort('key_name')
@@ -165,7 +166,7 @@ router.get('/', function(req, res, next) {
       res.render('key-list', { 
         pageTitle: 'Glanz Berlin',
         adminUser: getUserName(req),
-        title: 'List of keys',
+        title: 'Key list',
         keys: officeKeys,
         moment: require( 'moment' )
       });
