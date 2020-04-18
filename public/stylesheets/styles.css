@@ -240,10 +240,9 @@ form #qrCodeUpload {
 }
 
 img.qrCodeImg {
-  width: 20px;
+  width: 26px;
   position: relative;
-  top: 4px;
-  margin-left: 3px;
+  top: 8px;
 }
 
 .hint {
