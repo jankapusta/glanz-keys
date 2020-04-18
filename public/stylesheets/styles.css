@@ -271,7 +271,7 @@ input.copy, .pure-form input.copy {
 
 button.copy {
   padding: 3px 9px;
-  
+  min-height: 24px;
 }
 
 .hidden {
