@@ -47,10 +47,6 @@
     display: block;
   }
 
-  .pure-form .pure-button,   .pure-form .pure-button[type=submit] {
-    margin-bottom: 80px;
-  }
-
   .right-menu {
     display: block;
     float: none;
