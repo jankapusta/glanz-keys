@@ -159,7 +159,7 @@ router.get('/', function(req, res, next) {
 
   OfficeKey.find(
     {}, 
-    'key_name previous_holder current_holder last_transfer_date', 
+    'key_name previous_holder current_holder last_transfer_date qr_code short_name', 
     function (err, officeKeys) {
       if (err) return renderError(res, err, '/admin');
       res.render('key-list', { 

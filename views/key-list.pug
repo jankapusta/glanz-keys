@@ -13,6 +13,7 @@ block content
           th Current holder
           th Holding since
           th Previous holder
+          th QR code
       tbody 
         for one in keys
           tr
@@ -22,6 +23,15 @@ block content
             td #{moment(one.last_transfer_date).format('ddd MMM D')} 
               span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
             td #{one.previous_holder}
+            td 
+              if (one.qr_code.filename)
+                span(class='fileInfo exists' title='QR code exists')
+                  a(href='/images/qr/' + one.qr_code.filename target='_blank')
+                    img(src='/images/qr/' + one.qr_code.filename class='qrCode')  
+                  |   
+                  span(class='time') #{one.short_name}
+              else 
+                span(class='time') missing
            
   div(class='only-mobile pseudoTable')  
     for one in keys
