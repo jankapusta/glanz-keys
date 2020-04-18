@@ -1,4 +1,5 @@
 var mime = require('mime-types');
+var fs = require('fs');
 var express = require('express');
 var router = express.Router();
 
@@ -40,7 +41,7 @@ router.post('/key/update', function(req, res, next) {
       console.log('uploading: ' + req.files.qr_code.name);
       console.log(req.files.qr_code.mimetype);
       officeKey.qr_code = {
-        data: req.files.qr_code.data,
+        data: fs.readFileSync(req.files.qr_code.tempFilePath), // req.files.qr_code.data,
         content_type: req.files.qr_code.mimetype,
         filename: 'key_' + officeKey._id + '.' + mime.extension(req.files.qr_code.mimetype),
       }

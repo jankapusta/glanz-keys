@@ -275,6 +275,11 @@ input.copy, .pure-form input.copy {
   width: 140px;
 }
 
+button.copy {
+  padding: 3px 9px;
+  
+}
+
 @media print {
 
   .qrCodeItem {

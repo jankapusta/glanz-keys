@@ -46,7 +46,7 @@ block content
             label(for='qrCode' class='keyNameLabel') QR code:
               if (officeKey.qr_code.filename)
                 span(class='fileInfo exists' title='QR code exists')
-                  a(href='/images/qr/' + officeKey.qr_code.filename)
+                  a(href='/images/qr/' + officeKey.qr_code.filename target='_blank')
                     img(src='/images/qr/' + officeKey.qr_code.filename class='qrCode')  
               else 
                 span(class='fileInfo missing' title='QR missing') -
@@ -56,12 +56,13 @@ block content
                strong How to make QR code?  
                ol 
                 li Copy the link:
-                  input(class='copy' value='https://glanz-berlin.de/key?key_id=' + officeKey._id)
+                  input(class='copy' id='keyLink' value='https://glanz-berlin.de/key?key_id=' + officeKey._id)
+                  button(class='copy pure-button button-secondary' onclick='navigator.clipboard.writeText(document.getElementById("keyLink").value);return false;') &#128190; Copy
                 li On the 
                   a(href='https://www.the-qrcode-generator.com/' target='_blank') QR generator website
-                  |  open to [URL] tab
-                li Paste the link and click [Shorten]
-                li Save the PNG file to your laptop &amp; Upload here
+                  |  open to the [URL] tab
+                li Paste the link and click the [Shorten]
+                li Save the PNG file to your laptop &amp; Upload it here
           div(class='pure-control-group')    
             button(class='pure-button-primary pure-button') Save
           

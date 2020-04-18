@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var transferRouter = require('./routes/transfer');
 var adminRouter = require('./routes/admin');
 var devRouter = require('./routes/dev');
+var makeQRFiles = require("./functions/makeQRFiles.js");
 
 var app = express();
 const basicAuth = require('express-basic-auth');
@@ -26,6 +27,9 @@ var db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// make local QR image files from mongo data
+makeQRFiles();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
