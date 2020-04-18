@@ -51,7 +51,17 @@ block content
               else 
                 span(class='fileInfo missing' title='QR missing') -
             input(type='file' id='qrCode' name='qr_code')  
-            
+          div(class='pure-control-group')    
+             div(class='hint')
+               strong How to make QR code?  
+               ol 
+                li Copy the link:
+                  input(class='copy' value='https://glanz-berlin.de/key?key_id=' + officeKey._id)
+                li On the 
+                  a(href='https://www.the-qrcode-generator.com/' target='_blank') QR generator website
+                  |  open to [URL] tab
+                li Paste the link and click [Shorten]
+                li Save the PNG file to your laptop &amp; Upload here
           div(class='pure-control-group')    
             button(class='pure-button-primary pure-button') Save
           

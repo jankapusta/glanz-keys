@@ -256,6 +256,25 @@ form #qrCode {
   width: 12px;
 }
 
+.hint {
+  background-color: #d7eeff;
+  width:70%;
+  margin: 25px auto;
+  padding: 10px;
+  border-radius: 6px;
+}
+.hint li {
+  font-size: 11px;
+  text-align: left;
+  margin: 4px 0px;
+}
+
+input.copy, .pure-form input.copy {
+  border: none;
+  font-size: 9px;
+  width: 140px;
+}
+
 @media print {
 
   .qrCodeItem {
