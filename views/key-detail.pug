@@ -44,27 +44,29 @@ block content
             input(type='text' id='shortName' name='short_name' value=officeKey.short_name) 
           div(class='pure-control-group')    
             label(for='qrCode' class='keyNameLabel') QR code:
-              if (officeKey.qr_code.filename)
-                span(class='fileInfo exists' title='QR code exists')
-                  a(href='/images/qr/' + officeKey.qr_code.filename target='_blank')
-                    img(src='/images/qr/' + officeKey.qr_code.filename class='qrCode')  
-              else 
-                span(class='fileInfo missing' title='QR missing') -
-            input(type='file' id='qrCode' name='qr_code')  
+            if (officeKey.qr_code.filename)
+              span(id='fileInfo'  title='QR code exists')
+                a(href='/images/qr/' + officeKey.qr_code.filename target='_blank')
+                  img(src='/images/qr/' + officeKey.qr_code.filename class='qrCode')  
+                |   
+                button(type='button' class='pure-button button-secondary copy' onclick='document.getElementById("qrCode").classList.remove("hidden");document.getElementById("fileInfo").classList.add("hidden")') Upload PNG file 
+              input(type='file' class='hidden' id='qrCode' name='qr_code')   
+            else 
+              input(type='file' id='qrCode' name='qr_code')  
           div(class='pure-control-group')    
              div(class='hint')
                strong How to make QR code?  
                ol 
                 li Copy the link:
                   input(class='copy' id='keyLink' value='https://glanz-berlin.de/key?key_id=' + officeKey._id)
-                  button(class='copy pure-button button-secondary' onclick='navigator.clipboard.writeText(document.getElementById("keyLink").value);return false;') &#128190; Copy
+                  button(type='button' class='copy pure-button button-secondary' onclick='navigator.clipboard.writeText(document.getElementById("keyLink").value)') &#128190; Copy
                 li On the 
                   a(href='https://www.the-qrcode-generator.com/' target='_blank') QR generator website
                   |  open to the [URL] tab
-                li Paste the link and click the [Shorten]
+                li Paste the link and click the [Shorten] button
                 li Save the PNG file to your laptop &amp; Upload it here
           div(class='pure-control-group')    
-            button(class='pure-button-primary pure-button') Save
+            button(class='pure-button-primary pure-button') Save details and QR code
           
     
     div(class='panel')

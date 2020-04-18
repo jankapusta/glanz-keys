@@ -250,12 +250,6 @@ form #qrCode {
   margin-left: 3px;
 }
 
-.fileInfo.missing {
-  background-color: #ca3c3c;
-  color: white;
-  width: 12px;
-}
-
 .hint {
   background-color: #d7eeff;
   width:70%;
@@ -278,6 +272,10 @@ input.copy, .pure-form input.copy {
 button.copy {
   padding: 3px 9px;
   
+}
+
+.hidden {
+  display: none;
 }
 
 @media print {
