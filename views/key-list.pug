@@ -25,9 +25,9 @@ block content
             td #{one.previous_holder}
             td 
               if (one.qr_code.filename)
-                span(class='fileInfo exists' title='QR code exists')
+                span(title='QR code exists')
                   a(href='/images/qr/' + one.qr_code.filename target='_blank')
-                    img(src='/images/qr/' + one.qr_code.filename class='qrCode')  
+                    img(class='qrCodeImg' src='/images/qr/' + one.qr_code.filename class='qrCode')  
                   |   
                   span(class='time') #{one.short_name}
               else 

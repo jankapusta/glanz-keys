@@ -239,11 +239,7 @@ form #qrCodeUpload {
   max-width: 240px;
 }
 
-#fileInfo {
-  display: inline-block;
-}
-
-#fileInfo img {
+img.qrCodeImg {
   width: 20px;
   position: relative;
   top: 4px;

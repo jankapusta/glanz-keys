@@ -47,7 +47,7 @@ block content
             if (officeKey.qr_code.filename)
               span(id='fileInfo'  title='QR code exists')
                 a(href='/images/qr/' + officeKey.qr_code.filename target='_blank')
-                  img(src='/images/qr/' + officeKey.qr_code.filename)  
+                  img(class='qrCodeImg' src='/images/qr/' + officeKey.qr_code.filename)  
                 |   
                 button(type='button' class='pure-button button-secondary copy' onclick='document.getElementById("fileInfo").classList.add("hidden");document.getElementById("qrCodeUpload").classList.remove("hidden");') Upload PNG file 
               input(type='file' class='hidden' id='qrCodeUpload' name='qr_code')   
