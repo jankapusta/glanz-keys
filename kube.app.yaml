@@ -23,6 +23,11 @@ spec:
   # this replicas value is default
   # modify it according to your case
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
   revisionHistoryLimit: 2
   template:
     metadata:
