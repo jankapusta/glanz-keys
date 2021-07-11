@@ -24,23 +24,26 @@ spec:
     port: ${GLANZ_MONGO_PORT}
     targetPort: ${GLANZ_MONGO_PORT}
   selector:
-    name: glanz-mongo
+    app: ${BASE_NAME}-api
 status:
   loadBalancer: {}
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: glanz-mongo
   namespace: ${NAMESPACE}
 spec:
+  selector:
+    matchLabels:
+      app: ${BASE_NAME}-api
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        name: glanz-mongo
+        app: ${BASE_NAME}-api
     spec:
       containers:
       - name: mongo-container
