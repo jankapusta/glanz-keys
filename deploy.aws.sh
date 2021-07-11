@@ -14,7 +14,7 @@ LAST_COMMIT=`git rev-parse --short HEAD`
 PORT=3000
 NODE_ENV=${ENVIRONMENT}
 
-CONTAINER_IMAGE=970190113738.dkr.ecr.eu-central-1.amazonaws.com/${BASE_NAME}:v${LAST_COMMIT}
+CONTAINER_IMAGE=012567118424.dkr.ecr.eu-central-1.amazonaws.com/${BASE_NAME}:v${LAST_COMMIT}
 
 # Build image
 docker build --build-arg node_env=${NODE_ENV} -t ${CONTAINER_IMAGE} .
