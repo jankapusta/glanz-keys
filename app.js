@@ -53,7 +53,7 @@ app.use(fileUpload({
 app.use('/key', basicAuth({
   users: { 
     'glanz': 'glanz',
-    'Glanz': 'Glanzberlin19!', 
+    'Glanz': '!21Glanzberlin', // 'Glanzberlin19!',
   },
   challenge: true,
   realm: 'glanzberlinweb',
