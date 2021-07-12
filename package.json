@@ -16,7 +16,7 @@
     "http-errors": "~1.6.3",
     "mime-types": "^2.1.26",
     "moment": "^2.24.0",
-    "mongoose": "^5.6.10",
+    "mongoose": "^5.7.5",
     "mongoose-delete": "^0.5.0",
     "morgan": "~1.9.1",
     "pug": "^3.0.2"
