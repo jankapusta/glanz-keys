@@ -14,6 +14,10 @@ var makeQRFiles = require("./functions/makeQRFiles.js");
 var app = express();
 const basicAuth = require('express-basic-auth');
 
+const ADMIN_PWD = '!21Glanzberlin'; // 'Glanzberlin19!',
+const WORKER_PWD = 'glanz';
+const AUTH_REALM = 'glanzberlinweb';
+
 //Import the mongoose module
 var mongoose = require('mongoose');
 
@@ -52,19 +56,19 @@ app.use(fileUpload({
 
 app.use('/key', basicAuth({
   users: { 
-    'glanz': 'glanz',
-    'Glanz': '!21Glanzberlin', // 'Glanzberlin19!',
+    'glanz': WORKER_PWD,
+    'Glanz': ADMIN_PWD,
   },
   challenge: true,
-  realm: 'glanzberlinweb',
+  realm: AUTH_REALM,
 }), transferRouter);
 
 app.use('/admin', basicAuth({
   users: { 
-    'Glanz': 'Glanzberlin19!',  
+    'Glanz': ADMIN_PWD,
   },
   challenge: true,
-  realm: 'glanzberlinweb',
+  realm: AUTH_REALM,
 }), adminRouter);
 
 
