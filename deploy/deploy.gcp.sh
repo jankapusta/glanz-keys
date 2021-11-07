@@ -18,7 +18,7 @@ NODE_ENV=${ENVIRONMENT}
 CONTAINER_IMAGE=gcr.io/${PROJECT}/glanz-${ENVIRONMENT}-${BASE_NAME}:v${LAST_COMMIT}
 
 # Build image
-docker build --build-arg node_env=${NODE_ENV} -t ${CONTAINER_IMAGE} .
+docker build --build-arg node_env=${NODE_ENV} -t ${CONTAINER_IMAGE} --platform linux/x86_64 .
 docker push ${CONTAINER_IMAGE}
 
 IF=./deploy/kube.db.yaml
