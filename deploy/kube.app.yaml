@@ -3,8 +3,9 @@ kind: Service
 metadata:
   labels:
     app: node-svc-label
-  name: ${BASE_NAME}-service
+  name: ${BASE_NAME}-service-np
 spec:
+  type: NodePort
   ports:
     - port: ${PORT}
   selector:
