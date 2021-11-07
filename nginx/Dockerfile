@@ -8,8 +8,8 @@ RUN chmod +x /usr/local/bin/run.sh
 
 WORKDIR /var/www/public
 
-RUN apt-get update || true
-RUN apt-get install vim --assume-yes
-RUN apt-get install curl --assume-yes
+#RUN apt-get update || true
+#RUN apt-get install vim --assume-yes
+#RUN apt-get install curl --assume-yes
 
 ENTRYPOINT ["run.sh"]
