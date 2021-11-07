@@ -18,18 +18,18 @@ NODE_ENV=${ENVIRONMENT}
 CONTAINER_IMAGE=gcr.io/${PROJECT}/glanz-${ENVIRONMENT}-${BASE_NAME}:v${LAST_COMMIT}
 
 # Build image
-docker build --build-arg node_env=${NODE_ENV} -t ${CONTAINER_IMAGE} --platform linux/x86_64 .
+docker build --build-arg node_env=${NODE_ENV} -t ${CONTAINER_IMAGE} .
 docker push ${CONTAINER_IMAGE}
 
-IF=./kube.db.yaml
-OF=./kube.db-ready.yaml
+IF=./deploy/kube.db.yaml
+OF=./deploy/kube.db-ready.yaml
 eval "echo \"$(cat ${IF})\" > ${OF}"
 
 kubectl apply --record --namespace=${NAMESPACE} -f ${OF}
 rm ${OF}
 
-IF=./kube.app.yaml
-OF=./kube.app-ready.yaml
+IF=./deploy/kube.app.yaml
+OF=./deploy/kube.app-ready.yaml
 eval "echo \"$(cat ${IF})\" > ${OF}"
 
 
