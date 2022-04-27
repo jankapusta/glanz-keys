@@ -1,0 +1,6 @@
+nodion:
+  env: node
+  version: 17
+  port: 3000
+  build_command: yarn install
+  start_command: yarn start
