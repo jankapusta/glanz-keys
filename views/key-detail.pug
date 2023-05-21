@@ -43,10 +43,8 @@ block content
             label(for='shortName' class='keyNameLabel') Short name:    
             input(type='text' id='shortName' name='short_name' value=officeKey.short_name)
           div(class='pure-control-group')    
-            input(class='copy' type="hidden" id='keyLink' value='https://glanz-berlin.de/k?id=' + officeKey._id)
-            button(type='button' id='saveIcon' class='copy pure-button button-secondary' onclick='navigator.clipboard.writeText(document.getElementById("keyLink").value);document.getElementById("copiedIcon").classList.remove("hidden");document.getElementById("saveIcon").classList.add("hidden");')
-                | &#128190; Copy URL
             if (officeKey.qr_code.data_url)
+              a(href='https://glanz-berlin.de/k?id=' + officeKey._id class='copy pure-button button-secondary') Transfer key
               a(href='/admin/qr/one?key_id=' + officeKey._id class='copy pure-button button-secondary')
                 img(class='qrCodeImg' src=officeKey.qr_code.data_url)
                 span Show QR code
