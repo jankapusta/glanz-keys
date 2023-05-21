@@ -3,8 +3,8 @@ extends layout
 block content
   div(class='qrCodesPage')
     for one in keys
-      if (one.qr_code.filename)
+      if (one.qr_code.data_url)
         div(class='qrCodeItem')
           div(class='qrCodeName')= one.short_name
           div(class='qrCodeImage')
-            img(src='/images/qr/' + one.qr_code.filename class='qrCode') 
+            img(src=one.qr_code.data_url class='qrCode')

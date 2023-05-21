@@ -63,6 +63,15 @@ app.use('/key', basicAuth({
   realm: AUTH_REALM,
 }), transferRouter);
 
+app.use('/k', basicAuth({
+  users: {
+    'glanz': WORKER_PWD,
+    'Glanz': ADMIN_PWD,
+  },
+  challenge: true,
+  realm: AUTH_REALM,
+}), transferRouter);
+
 app.use('/admin', basicAuth({
   users: { 
     'Glanz': ADMIN_PWD,

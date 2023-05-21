@@ -10,9 +10,10 @@ var mongoose_delete = require('mongoose-delete');
     current_holder: String,
     last_transfer_date: Date,
     qr_code: {
+      // data = deprecated
       data: Buffer,
+      data_url: String,
       content_type: String,
-      filename: String,
     }
   });
 

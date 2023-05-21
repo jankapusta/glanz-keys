@@ -85,8 +85,9 @@ router.get('/', function(req, res, next) {
     function (err, officeKeys) {
       if (err) return renderError(res, err);
 
-      if(req.query.key_id) {
-        OfficeKey.findOne({'_id': req.query.key_id}, (err, officeKey) => {
+      const key_id = req.query.key_id || req.query.id;
+      if(key_id) {
+        OfficeKey.findOne({'_id': key_id}, (err, officeKey) => {
           if (err) return renderError(res, err);
           rednerTransfer(req, officeKeys, officeKey);
         });

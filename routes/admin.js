@@ -1,6 +1,5 @@
-var mime = require('mime-types');
-var fs = require('fs');
 var express = require('express');
+const makeDataUrl = require("../functions/makeDataUrl.js");
 var router = express.Router();
 
 const OfficeKey = require("../models/OfficeKey.js");
@@ -38,20 +37,8 @@ router.post('/key/update', function(req, res, next) {
     if (err || !officeKey) return renderError(res, err || 'Key not found', '/admin');
     officeKey.key_name = req.body.key_name;
     officeKey.short_name = req.body.short_name;
-    if (req.files && req.files.qr_code) {
-      console.log('uploading: ' + req.files.qr_code.name);
-      console.log(req.files.qr_code.mimetype);
-      officeKey.qr_code = {
-        data: fs.readFileSync(req.files.qr_code.tempFilePath), // req.files.qr_code.data,
-        content_type: req.files.qr_code.mimetype,
-        filename: 'key_' + officeKey._id + '.' + mime.extension(req.files.qr_code.mimetype),
-      }
-    }
     OfficeKey.updateOne({'_id': officeKey._id}, officeKey, (err) => {
       if (err) return renderError(res, err, '/admin');
-      if (req.files && req.files.qr_code) {
-        req.files.qr_code.mv('./public/images/qr/' + officeKey.qr_code.filename);
-      }
       res.render('key-update-done', { 
         pageTitle: 'Glanz Berlin',
         adminUser: getUserName(req),
@@ -96,24 +83,26 @@ router.post('/key/add/submit', function(req, res, next) {
   newKey.save().then(result => {
     console.log(result);
     if(!result._id) return renderError(res, 'Failure', '/admin/key/add');
-
-    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    const historyRecord = {
-      next_holder: officeKeyToSet.current_holder,
-      previous_holder: '- created -',
-      transfer_date: officeKeyToSet.last_transfer_date,
-      key_name: officeKeyToSet.key_name,
-      key_id: newKey._id,
-      ip_address: ip,
-    };
-    // track history
-    Transfer.create(historyRecord).then(result => {
-      if(!result.ok) {
-        console.log('failed to save transfer track record');
-      }
+    makeDataUrl(result, (key) => {
+      key.save().then(saveResult => {
+        var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const historyRecord = {
+          next_holder: officeKeyToSet.current_holder,
+          previous_holder: '- created -',
+          transfer_date: officeKeyToSet.last_transfer_date,
+          key_name: officeKeyToSet.key_name,
+          key_id: newKey._id,
+          ip_address: ip,
+        };
+        // track history
+        Transfer.create(historyRecord).then(result => {
+          if(!result.ok) {
+            console.log('failed to save transfer track record');
+          }
+          res.redirect('/admin/key/add/done?key_id=' + newKey._id);
+        });
+      });
     });
-
-    res.redirect('/admin/key/add/done?key_id=' + newKey._id);
   });
 });
 
@@ -154,6 +143,16 @@ router.get('/qr/list', function(req, res, next) {
         keys: officeKeys,
       });
     }).sort('key_name')
+});
+
+router.get('/qr/one', function(req, res, next) {
+  OfficeKey.findOne({'_id': req.query.key_id}, 'key_name short_name qr_code', (err, officeKey) => {
+      if (err) return renderError(res, err, '/admin');
+      res.render('qr-codes', {
+        title: 'Key: ' + officeKey.key_name,
+        keys: [officeKey],
+      });
+    })
 });
 
 router.get('/', function(req, res, next) {
