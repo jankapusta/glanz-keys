@@ -10,33 +10,28 @@ block content
       thead 
         tr
           th Key name 
+          th Short name
           th Current holder
           th Holding since
           th Previous holder
-          th QR code
       tbody 
         for one in keys
           tr
             td 
               a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See key details') #{one.key_name}
+            td #{one.short_name}
             td #{one.current_holder}
             td #{moment(one.last_transfer_date).format('ddd MMM D')} 
               span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
             td #{one.previous_holder}
-            td
-              if (one.qr_code.data_url)
-                a(href='/admin/qr/one?key_id=' + one._id class='pure-button-primary pure-button')
-                  img(class='qrCodeImg' src=one.qr_code.data_url)
-                  span Show QR code
-              else
-                span(id='fileInfo'  title='QR code missing') - no QR code -
            
   div(class='only-mobile pseudoTable')  
     for one in keys
       div(class='mobileRow')
-        span(class='keyNameRow') 
+        span(class='keyNameRow')
+          span(class='small') #{one.short_name}
           a(href='/admin/key/view?key_id=' + one._id class='keyName' title='See key details') #{one.key_name}
-          span 
+          span
             span(class='small') with  
             | #{one.current_holder}
         span(class='keyInfoRow') 

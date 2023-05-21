@@ -142,7 +142,7 @@ router.get('/qr/list', function(req, res, next) {
         title: 'QR codes',
         keys: officeKeys,
       });
-    }).sort('key_name')
+    }).sort([['_id', -1]])
 });
 
 router.get('/qr/one', function(req, res, next) {

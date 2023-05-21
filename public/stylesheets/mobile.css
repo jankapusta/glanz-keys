@@ -47,6 +47,10 @@
     display: block;
   }
 
+  .pure-button {
+    margin-bottom: 10px;
+  }
+
   .right-menu {
     display: block;
     float: none;
