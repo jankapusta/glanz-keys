@@ -41,19 +41,20 @@ block content
             input(type='text' id='keyName' name='key_name' value=officeKey.key_name) 
           div(class='pure-control-group')    
             label(for='shortName' class='keyNameLabel') Short name:    
-            input(type='text' id='shortName' name='short_name' value=officeKey.short_name) 
+            input(type='text' id='shortName' name='short_name' value=officeKey.short_name)
           div(class='pure-control-group')    
-            label(class='keyNameLabel') QR code:
+            input(class='copy' type="hidden" id='keyLink' value='https://glanz-berlin.de/k?id=' + officeKey._id)
+            button(type='button' id='saveIcon' class='copy pure-button button-secondary' onclick='navigator.clipboard.writeText(document.getElementById("keyLink").value);document.getElementById("copiedIcon").classList.remove("hidden");document.getElementById("saveIcon").classList.add("hidden");')
+                | &#128190; Copy URL
             if (officeKey.qr_code.data_url)
-              span(id='fileInfo'  title='QR code exists')
+              a(href='/admin/qr/one?key_id=' + officeKey._id class='copy pure-button button-secondary')
                 img(class='qrCodeImg' src=officeKey.qr_code.data_url)
+                span Show QR code
             else
               span(id='fileInfo'  title='QR code missing') - no QR code -
-          div(class='pure-control-group')    
+          div(class='pure-control-group')
             button(class='pure-button-primary pure-button') Save details
-            a(href='/admin/qr/one?key_id=' + officeKey._id class='pure-button-primary pure-button') Show QR code
 
-    
     div(class='panel')
       h3(class='editKeyForm') Danger zone
       form(class='pure-form pure-form' action='/admin/key/delete' method='post')

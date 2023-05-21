@@ -23,15 +23,13 @@ block content
             td #{moment(one.last_transfer_date).format('ddd MMM D')} 
               span(class='time') #{moment(one.last_transfer_date).format('HH:mm')}
             td #{one.previous_holder}
-            td 
+            td
               if (one.qr_code.data_url)
-                span(title='QR code exists')
-                  a(href=one.qr_code.data_url target='_blank')
-                    img(class='qrCodeImg' src=one.qr_code.data_url class='qrCode')
-                  |   
-                  span(class='time') #{one.short_name}
-              else 
-                span(class='time') missing
+                a(href='/admin/qr/one?key_id=' + one._id class='pure-button-primary pure-button')
+                  img(class='qrCodeImg' src=one.qr_code.data_url)
+                  span Show QR code
+              else
+                span(id='fileInfo'  title='QR code missing') - no QR code -
            
   div(class='only-mobile pseudoTable')  
     for one in keys

@@ -245,6 +245,13 @@ img.qrCodeImg {
   top: 8px;
 }
 
+a.pure-button img.qrCodeImg {
+  display: inline-block;
+  margin: 0px 12px 0px 0px;
+  width: 16px;
+  top: 2px !important;
+}
+
 .hint {
   background-color: #d7eeff;
   width:70%;
@@ -265,8 +272,9 @@ input.copy, .pure-form input.copy {
 }
 
 button.copy {
-  padding: 3px 9px;
+  /*padding: 3px 9px;*/
   min-height: 24px;
+  max-height: 39px;
 }
 
 .hidden {
