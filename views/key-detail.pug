@@ -37,7 +37,7 @@ block content
       form(class='pure-form pure-form-aligned' action='/admin/key/update' method='post' encType="multipart/form-data")
           div(class='pure-control-group')  
             input(type='hidden' name='key_id' value=officeKey._id) 
-            label(for='keyName' class='keyNameLabel') Key name:    
+            label(for='keyName' class='keyNameLabel') Key name (private):
             input(type='text' id='keyName' name='key_name' value=officeKey.key_name) 
           div(class='pure-control-group')    
             label(for='shortName' class='keyNameLabel') Short name:    
