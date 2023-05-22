@@ -5,14 +5,18 @@ block content
     h2= title     
     div(class='pure-control-group')
         label(class='keySelect' for='key-location') Which key? 
-        if (selectedKey) 
+        if (selectedKey)
+          span(class='small') #{selectedKey.short_name}
           span(class='keyName') #{selectedKey.key_name}
+          span(class='holder')
+            span(class='small') with
+            | &nbsp;#{selectedKey.current_holder}
           input(type='hidden' value=selectedKey._id name='key_id')
         else 
           select(id='key-location' name='key_id')
               option(value='' selected=1) - choose key -
               for one in keys
-                  option(value=one.id) #{one.key_name} (with #{one.current_holder})
+                  option(value=one.id) #{one.short_name} > #{one.key_name} (with #{one.current_holder})
     div(class='pure-control-group')                
         label(class='nameInput' for='holder') Who is taking it over:
         input(id='holder' type='text' value=holderName placeholder='New holder name' name='holder')

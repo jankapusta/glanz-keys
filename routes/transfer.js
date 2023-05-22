@@ -81,7 +81,7 @@ router.get('/', function(req, res, next) {
   
   OfficeKey.find(
     {}, 
-    'key_name current_holder', 
+    'key_name current_holder short_name',
     function (err, officeKeys) {
       if (err) return renderError(res, err);
 
